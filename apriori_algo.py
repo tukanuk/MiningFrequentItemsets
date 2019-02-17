@@ -2,6 +2,7 @@ import pandas as pd
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
 import time
+import numpy as np
 
 # For enhancement
 
@@ -21,10 +22,10 @@ def alg():
 
     chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     thresholds = [0.01, 0.05, 0.1]
-    # thresholds = [0.05]
 
     result_df = pd.DataFrame(columns=['Threshold','Frequent Set Count','Execution Time','Chunk Size',
                                                                                     'Chunk Percent'])
+    frequent_sets = pd.DataFrame(columns=['Threshold','Chunk Size','Frequent Set'])
 
     for threshold in thresholds:
         for percent in chunk_percent:
@@ -52,7 +53,11 @@ def alg():
             frequent_items['length'] = frequent_items['itemsets'].apply(lambda iset : len(iset))
             frequent_items = frequent_items[(frequent_items['length']) == 2]
 
-            # print(frequent_items)
+            frequent_set_stack = np.column_stack ([ [int(threshold * 100)] * len(frequent_items['itemsets']),
+                                                    [chunk_size] * len(frequent_items['itemsets']),
+                                                    frequent_items['itemsets'] ])
+            frequent_sets_temp = pd.DataFrame(frequent_set_stack,columns=['Threshold','Chunk Size','Frequent Set'])
+            frequent_sets = pd.concat([frequent_sets,frequent_sets_temp])
 
             end = time.time()   #Timer stopped
 
@@ -63,7 +68,11 @@ def alg():
             print("%d %d %.3f %d" % (int(threshold * 100), len(frequent_items.index) , ((end - start) * 1000), chunk_size))
 
 
-    result_df.to_csv('data/apriori_result_3.csv', index=False)
+    # result_df.to_csv('data/apriori_result_3.csv', index=False)
+    writer = pd.ExcelWriter('data/apriori_result.xlsx',engine='xlsxwriter')
+    result_df.to_excel(writer,sheet_name='Result', index=False)
+    frequent_sets.to_excel(writer,sheet_name='Sets', index=False)
+    writer.save()
 
 if __name__ == "__main__":
     alg()
