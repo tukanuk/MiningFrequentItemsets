@@ -45,11 +45,14 @@ def alg():
 
             df = pd.DataFrame(te_table, columns=te.columns_)
 
+            #Max len implemented to improve performance and runtime
             frequent_items = apriori(df, min_support=threshold, use_colnames=True, max_len=2)
 
             #Pick sets with only two items in them
             frequent_items['length'] = frequent_items['itemsets'].apply(lambda iset : len(iset))
             frequent_items = frequent_items[(frequent_items['length']) == 2]
+
+            # print(frequent_items)
 
             end = time.time()   #Timer stopped
 
