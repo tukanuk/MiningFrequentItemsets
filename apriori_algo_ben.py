@@ -21,7 +21,7 @@ def ap():
 
     df = pd.DataFrame(te_ary, columns=te.columns_)
 
-    frequent_items = apriori(df, min_support=0.05, use_colnames=True, max_len=2 )
+    frequent_items = apriori(df, min_support=0.01, use_colnames=True, max_len=2 )
 
     print(frequent_items)
 
