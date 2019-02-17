@@ -52,11 +52,14 @@ def updateHashTable(line,my_dict,size):
         for item in key:
             v1=getVal(item,my_dict)            
             total+=v1
-        total=total%bucketSize
+        total=total%bucketSize # actual hash function total % bucket size
         if isPrint==True:
             print "%s - %d"%(key,total)
         hashTable[total]+=1
     ####################################### HASH function
+    # if I understand corrctly what is happening here the two values are added 
+    # then % bucket size. Doesn't this limit destination to the sum? 
+    # TODO How can we get a better hash?
 
 def printMemSize(items,_pass):
     if _pass==0:
@@ -209,7 +212,7 @@ def isNextPassPossible(_pass):
     bitVectorFlag=False
     frequent_items = generateFreqCandidates(items)     # list of frequent items
     # if _pass > 1:
-        # print "frequent item sets of size %d : "%(_pass), "%d " % (len(frequent_items)) #, frequent_items
+    #     print "frequent item sets of size %d : "%(_pass), "%d " % (len(frequent_items)), frequent_items
     bitVectorFlag=generateBitVector()
     if (len(freqItemsCurItr)>0 and bitVectorFlag==True and _pass < 2):
         return True
