@@ -47,36 +47,33 @@ def updateHashTable(line, my_dict, size):
     global hashTable
     v1 = v2 = total = 0
     items = [list(x) for x in itertools.combinations(line, size)]
-    if isPrint == True:
-        print("UpdateHashTable")
-        print(items)
+    if isPrint==True:
+        print ("UpdateHashTable")
+        print (items)
 
     ####################################### HASH function
     for key in items:
         total = 0
         for item in key:
-            v1 = getVal(item, my_dict)
-            total += v1
-        total = total % bucketSize  # actual hash function total % bucket size
-        if isPrint == True:
-            print("%s - %d" % (key, total))
-        hashTable[total] += 1
+            v1=getVal(item,my_dict)            
+            total+=v1
+        total=total%bucketSize # actual hash function total % bucket size
+        if isPrint==True:
+            print ("%s - %d"%(key,total) )
+        hashTable[total]+=1
     ####################################### HASH function
     # if I understand corrctly what is happening here the two values are added
     # then % bucket size. Doesn't this limit destination to the sum?
     # TODO How can we get a better hash?
 
-
-def printMemSize(items, _pass):
-    if _pass == 0:
-        print("memory for item counts: %d" % ((8 + _pass * 4) * len(items)))
+def printMemSize(items,_pass):
+    if _pass==0:
+        print ("memory for item counts: %d"%((8+_pass*4)*len(items)))
     else:
-        print("memory for candidates counts of size %d : %d" % (_pass + 1, (8 + _pass * 4) * (len(items))))
-
+        print ("memory for candidates counts of size %d : %d"%(_pass+1,(8+_pass*4)*(len(items))))
 
 def printMemSizeHashTable(candidateType):
-    print("memory for hash table counts for size %d itemsets: %d" % (candidateType, 4 * len(hashTable)))
-
+    print ("memory for hash table counts for size %d itemsets: %d"%(candidateType,4*len(hashTable)))
 
 def generateFreqCandidates(items):
     global freqItemsCurItr
@@ -98,15 +95,13 @@ def generateFreqCandidates(items):
 def updateFreqItems(items):
     global freqItems
     freqItems.append(items)
-    if isPrint == True:
-        print("FreqItems:")
-        print(freqItems)
-
+    if isPrint==True:
+        print ("FreqItems:")
+        print (freqItems)
 
 def printFreqItems(Idx):
     global freqItems
-    print(freqItems[Idx])
-
+    print (freqItems[Idx])
 
 def generateHashTable(size):
     global hashTable
@@ -132,14 +127,14 @@ def countCandidatesAndFillHashTable(_pass):
         line = re.sub(r'\n', "", line)
         basket = line.split(',')
         basket.sort()
-        if (_pass == 0):
-            addWeights(my_dict, basket)
-        # else:
-        # print freqItems
-        # candidateItems=generateCandidates(freqItems[0],_pass)
-        itemsInBasket = list(itertools.combinations(basket, _pass + 1))
-        if isPrint == True:
-            print(itemsInBasket)
+        if (_pass==0):                    
+            addWeights(my_dict,basket)
+        #else:
+            #print freqItems
+            #candidateItems=generateCandidates(freqItems[0],_pass)
+        itemsInBasket = list(itertools.combinations(basket,_pass+1))
+        if isPrint==True:
+            print (itemsInBasket)                    
         for item in itemsInBasket:
             if (_pass != 0):
                 item_1 = list(itertools.combinations(item, _pass))
@@ -210,11 +205,11 @@ def generateBitVector():
             flag = True
         else:
             bitVector.append(0)
-    if isPrint == True:
-        print("BitVector:%d" % (flag))
-        print(bitVector)
-    # print "bitmap size : %d"%(len(bitVector))
-    bitMapSize = len(bitVector)
+    if isPrint==True:
+        print ("BitVector:%d"%(flag))
+        print (bitVector)
+    #print "bitmap size : %d"%(len(bitVector))
+    bitMapSize=len(bitVector)
     return flag
 
 
@@ -232,9 +227,8 @@ def isNextPassPossible(_pass):
     else:
         return False
 
-
-# Generating items-singletons
-# def __main__():
+#Generating items-singletons
+#def __main__():
 if __name__ == '__main__':
     # global my_dict
     # global hash
@@ -249,9 +243,9 @@ if __name__ == '__main__':
     data_lines = open(fileName).readlines()
     basket_count = len(data_lines)
 
-    print("%d Baskets" % (basket_count))
-    print("%d Buckets" % (bucketSize))
-    print("%Thr Supp Chunk  Fre      Time")
+    print ("%d Baskets" % (basket_count))
+    print ("%d Buckets" % (bucketSize))
+    print ("%Thr Supp Chunk  Fre      Time")
 
     for threshold in thresholds:
         for percent in chunk_percent:
@@ -292,10 +286,7 @@ if __name__ == '__main__':
                 #     print
                 _pass += 1
 
-            end = time.time()  # Timer stop
-
-            print(
-                "%.2f %4d %5d %4d %9.3f" % (threshold, support, chunk_size, len(frequent_items), (end - start) * 1000))
+            print ("%.2f %4d %5d %4d %9.3f" % (threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
 
     
     
