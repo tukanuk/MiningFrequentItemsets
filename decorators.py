@@ -1,5 +1,9 @@
 import functools
 import time
+import simplelogging
+
+# simplelogger
+log = simplelogging.get_logger()
 
 # Timer for a function
 def timer(func):
@@ -11,6 +15,21 @@ def timer(func):
         end_time = time.perf_counter()      # 2
         run_time = end_time - start_time    # 3
         print(f"\nFinished {func.__name__!r} in {run_time:.4f} secs\n")
+        return value
+    return wrapper_timer
+
+# Function timer that uses simplelogging to log timing
+def logTimer(func):
+    """Log the runtime of the decorated function
+    Uses simplelogging to log results"""
+    @functools.wraps(func)
+    def wrapper_timer(*args, **kwargs):
+        start_time = time.perf_counter()    # 1
+        value = func(*args, **kwargs)
+        end_time = time.perf_counter()      # 2
+        run_time = end_time - start_time    # 3
+        # print(f"\nFinished {func.__name__!r} in {run_time:.4f} secs\n")
+        log.info(f"{func.__name__!r} in {run_time:.4f} secs")
         return value
     return wrapper_timer
 
