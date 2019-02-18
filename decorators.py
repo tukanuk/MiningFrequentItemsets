@@ -29,7 +29,7 @@ def logTimer(func):
         end_time = time.perf_counter()      # 2
         run_time = end_time - start_time    # 3
         # print(f"\nFinished {func.__name__!r} in {run_time:.4f} secs\n")
-        log.info(f"{func.__name__!r} in {run_time:.4f} secs")
+        log.debug(f"{func.__name__!r} in {run_time:.4f} secs")
         return value
     return wrapper_timer
 
