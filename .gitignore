@@ -108,3 +108,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+nandan_nayak_pcy.py
+data/input.txt
