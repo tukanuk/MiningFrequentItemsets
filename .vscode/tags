@@ -1,0 +1,278 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+EnsembleVoteClassifier	../scratch_files/mlxtend_test.py	/^from mlxtend.classifier import EnsembleVoteClassifier$/;"	kind:namespace	line:8
+FreqItemList	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^    FreqItemList=convertTupleToList(FreqItems)$/;"	kind:variable	line:217
+FreqItems	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^FreqItems=[]$/;"	kind:variable	line:8
+FreqItems	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^FreqItems={}$/;"	kind:variable	line:18
+Items	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^Items={}$/;"	kind:variable	line:9
+LogisticRegression	../scratch_files/mlxtend_test.py	/^from sklearn.linear_model import LogisticRegression$/;"	kind:namespace	line:5
+OutputCSV	../filem.py	/^def OutputCSV():$/;"	kind:function	line:4
+OutputCSV	../pcy_algo.py	/^def OutputCSV(data_result):$/;"	kind:function	line:242
+RandomForestClassifier	../scratch_files/mlxtend_test.py	/^from sklearn.ensemble import RandomForestClassifier$/;"	kind:namespace	line:7
+SVC	../scratch_files/mlxtend_test.py	/^from sklearn.svm import SVC$/;"	kind:namespace	line:6
+TransactionEncoder	../apriori_algo.py	/^from mlxtend.preprocessing import TransactionEncoder$/;"	kind:namespace	line:2
+TransactionEncoder	../apriori_algo_ben.py	/^from mlxtend.preprocessing import TransactionEncoder$/;"	kind:namespace	line:2
+X	../scratch_files/mlxtend_test.py	/^X = X[:,[0, 2]]$/;"	kind:variable	line:21
+_pass	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^    _pass=1$/;"	kind:variable	line:190
+_pass	../pcy_algo.py	/^            _pass = 0$/;"	kind:variable	line:327
+addWeights	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def addWeights(basket):$/;"	kind:function	line:18
+addWeights	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def addWeights(d,basket):$/;"	kind:function	line:27
+addWeights	../pcy_algo.py	/^def addWeights(d, basket):$/;"	kind:function	line:39
+alg	../apriori_algo.py	/^def alg():$/;"	kind:function	line:19
+ap	../apriori_algo_ben.py	/^def ap():$/;"	kind:function	line:9
+apriori	../apriori_algo.py	/^from mlxtend.frequent_patterns import apriori$/;"	kind:namespace	line:3
+apriori	../apriori_algo_ben.py	/^from mlxtend.frequent_patterns import apriori$/;"	kind:namespace	line:3
+apriori_algo.py	../apriori_algo.py	1;"	kind:file	line:1
+apriori_algo_ben.py	../apriori_algo_ben.py	1;"	kind:file	line:1
+avg_bucket_count	../bucket_cal.py	/^avg_bucket_count = (t_basket_count * avg_item_count ** 2) \/ (2 * bucket)$/;"	kind:variable	line:21
+avg_item_count	../bucket_cal.py	/^avg_item_count = item_count \/ t_basket_count  # avg basket size   $/;"	kind:variable	line:15
+ax	../scratch_files/mlxtend_test.py	/^    ax = plt.subplot(gs[grd[0], grd[1]])$/;"	kind:variable	line:38
+b_hash_buckets	../bucket_cal.py	/^b_hash_buckets = []$/;"	kind:variable	line:7
+basket_count	../pcy_algo.py	/^    basket_count = len(data_lines)$/;"	kind:variable	line:291
+bitMapSize	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^bitMapSize=0$/;"	kind:variable	line:19
+bitMapSize	../pcy_algo.py	/^bitMapSize=0$/;"	kind:variable	line:28
+bitVector	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^bitVector=[]$/;"	kind:variable	line:17
+bitVector	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^bitVector={}$/;"	kind:variable	line:7
+bitVector	../pcy_algo.py	/^bitVector=[]$/;"	kind:variable	line:25
+bitVector	../pcy_algo.py	/^bitVector={}$/;"	kind:variable	line:15
+bitVector1	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^                bitVector1=generateBitVector(hashTable1,bitVector1,1)$/;"	kind:variable	line:205
+bitVector1	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^    bitVector1=initializeVec(bitVector1)$/;"	kind:variable	line:193
+bitVector1	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^bitVector1=[]$/;"	kind:variable	line:12
+bitVector2	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^                bitVector2=generateBitVector(hashTable2,bitVector2,2)$/;"	kind:variable	line:211
+bitVector2	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^    bitVector2=initializeVec(bitVector2)$/;"	kind:variable	line:194
+bitVector2	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^bitVector2=[]$/;"	kind:variable	line:13
+bitmap	../Data-Mining-PCY/pcy.py	/^bitmap = [0]*num_buckets$/;"	kind:variable	line:16
+bitmap_to_list	../pcy_sample.py	/^def bitmap_to_list(bitmap, bucket_size):$/;"	kind:function	line:105
+bucket	../bucket_cal.py	/^bucket = 10$/;"	kind:variable	line:4
+bucketSize	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^bucketSize=int(sys.argv[3]) #Replace this with sys.argv$/;"	kind:variable	line:6
+bucketSize	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^bucketSize=int(sys.argv[3])$/;"	kind:variable	line:14
+bucketSize	../pcy_algo.py	/^bucketSize=int(sys.argv[2]) # arg 3 bucket size$/;"	kind:variable	line:22
+bucket_cal.py	../bucket_cal.py	1;"	kind:file	line:1
+canFreqItems	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^canFreqItems={}$/;"	kind:variable	line:16
+chunk_percent	../pcy_algo.py	/^    chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]$/;"	kind:variable	line:280
+chunk_size	../pcy_algo.py	/^            chunk_size = int(basket_count * percent)$/;"	kind:variable	line:308
+clf1	../scratch_files/mlxtend_test.py	/^clf1 = LogisticRegression(random_state=0)$/;"	kind:variable	line:13
+clf2	../scratch_files/mlxtend_test.py	/^clf2 = RandomForestClassifier(random_state=0)$/;"	kind:variable	line:14
+clf3	../scratch_files/mlxtend_test.py	/^clf3 = SVC(random_state=0, probability=True)$/;"	kind:variable	line:15
+cls	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def cls():$/;"	kind:function	line:185
+compare	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def compare(list1,list2):$/;"	kind:function	line:179
+convertTupleToList	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def convertTupleToList(freqItems):$/;"	kind:function	line:163
+convertTupleToList	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def convertTupleToList(freqItems):$/;"	kind:function	line:151
+copyfile	../pcy_algo.py	/^from shutil import copyfile$/;"	kind:namespace	line:7
+countCandidatesAndFillHashTable	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def countCandidatesAndFillHashTable(_pass):$/;"	kind:function	line:98
+countCandidatesAndFillHashTable	../pcy_algo.py	/^def countCandidatesAndFillHashTable(_pass):$/;"	kind:function	line:118
+countCandidatesAndFillHashTable2	../pcy_algo.py	/^def countCandidatesAndFillHashTable2(_pass, dataset):$/;"	kind:function	line:162
+count_items	../pcy_sample.py	/^def count_items(candidates, support, baskets):$/;"	kind:function	line:125
+count_pairs	../pcy_sample.py	/^def count_pairs(pairs, baskets):$/;"	kind:function	line:197
+csv	../filem.py	/^import csv$/;"	kind:namespace	line:1
+csv	../pcy_algo.py	/^import csv$/;"	kind:namespace	line:4
+data	../bucket_cal.py	/^data = f.read()        $/;"	kind:variable	line:10
+data_lines	../pcy_algo.py	/^    data_lines = open(fileName).readlines()$/;"	kind:variable	line:290
+data_result	../pcy_algo.py	/^    data_result = []$/;"	kind:variable	line:299
+data_result_line	../pcy_algo.py	/^            data_result_line = [threshold, support, chunk_size, len(frequent_items), (end-start)*1000]$/;"	kind:variable	line:344
+data_result_line	../pcy_algo.py	/^    data_result_line = ["threshold", "support", "chunk_size", "frequent_items", "time"]$/;"	kind:variable	line:300
+dataset	../pcy_algo.py	/^            dataset = []$/;"	kind:variable	line:316
+debug	../apriori_algo_ben.py	/^from decorators import debug, timer, repeat$/;"	kind:namespace	line:5
+debug	../decorators.py	/^def debug(func):$/;"	kind:function	line:52
+debug	../pcy_algo.py	/^from decorators import timer, debug, logTimer$/;"	kind:namespace	line:8
+decorator	../decorators.py	/^def decorator(func):$/;"	kind:function	line:43
+decorator_repeat	../decorators.py	/^    def decorator_repeat(func):$/;"	kind:function	line:74
+decorators.py	../decorators.py	1;"	kind:file	line:1
+display_result	../pcy_sample.py	/^def display_result(result):$/;"	kind:function	line:41
+do_twice	../decorators.py	/^def do_twice(func):$/;"	kind:function	line:36
+eclf	../scratch_files/mlxtend_test.py	/^eclf = EnsembleVoteClassifier(clfs=[clf1, clf2, clf3],$/;"	kind:variable	line:16
+extractList	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def extractList(my_list,size):        $/;"	kind:function	line:169
+extractList	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def extractList(my_list):$/;"	kind:function	line:164
+f	../bucket_cal.py	/^f = open(r'Data-Mining-PCY\/data.txt') #.readlines()$/;"	kind:variable	line:9
+fig	../scratch_files/mlxtend_test.py	/^    fig = plot_decision_regions(X=X, y=y,$/;"	kind:variable	line:39
+fig	../scratch_files/mlxtend_test.py	/^fig = plt.figure(figsize=(10, 8))$/;"	kind:variable	line:26
+fileName	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^fileName=sys.argv[1]$/;"	kind:variable	line:5
+fileName	../pcy_algo.py	/^fileName=sys.argv[1]        # arg 1 filename$/;"	kind:variable	line:13
+filem.py	../filem.py	1;"	kind:file	line:1
+filename	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^filename=sys.argv[1]$/;"	kind:variable	line:16
+filename	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^filename=sys.argv[1]$/;"	kind:variable	line:20
+fill	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def fill(hashTable,line,_pass,tableType):$/;"	kind:function	line:95
+findFreqItems	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def findFreqItems(inDict,_pass):$/;"	kind:function	line:139
+findHashValue	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def findHashValue(group,tableType):$/;"	kind:function	line:121
+findMaxLenOfItem	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def findMaxLenOfItem(my_list):$/;"	kind:function	line:182
+findMaxLenOfItem	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def findMaxLenOfItem(my_list):$/;"	kind:function	line:157
+flag	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^                flag=getItemCounts(line,_pass)$/;"	kind:variable	line:213
+flag	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^            flag=getItemCounts(line,_pass)$/;"	kind:variable	line:199
+flag	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^    flag=True$/;"	kind:variable	line:192
+fraction	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^fraction=0.8$/;"	kind:variable	line:15
+freqItems	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^freqItems=[]$/;"	kind:variable	line:11
+freqItems	../pcy_algo.py	/^freqItems=[]$/;"	kind:variable	line:19
+freqItemsCurItr	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^freqItemsCurItr=[]$/;"	kind:variable	line:12
+freqItemsCurItr	../pcy_algo.py	/^freqItemsCurItr=[]$/;"	kind:variable	line:20
+frequency_threshold	../bucket_cal.py	/^frequency_threshold = [0.01, 0.05, 0.10]$/;"	kind:variable	line:5
+frequent_items	../pcy_algo.py	/^frequent_items=[]             # list of the frequent items $/;"	kind:variable	line:30
+frequent_pairs	../Data-Mining-PCY/pcy.py	/^frequent_pairs = {}$/;"	kind:variable	line:12
+functools	../decorators.py	/^import functools$/;"	kind:namespace	line:1
+generateBitVector	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def generateBitVector(hashTable,bitVector,vecType):    $/;"	kind:function	line:148
+generateBitVector	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def generateBitVector():$/;"	kind:function	line:143
+generateBitVector	../pcy_algo.py	/^def generateBitVector():$/;"	kind:function	line:208
+generateCandidates	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def generateCandidates(candidates,_pass):$/;"	kind:function	line:92
+generateCandidates	../pcy_algo.py	/^def generateCandidates(candidates, _pass):$/;"	kind:function	line:113
+generateFreqCandidates	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def generateFreqCandidates(items):$/;"	kind:function	line:60
+generateFreqCandidates	../pcy_algo.py	/^def generateFreqCandidates(items):$/;"	kind:function	line:79
+generateHashTable	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def generateHashTable(size):$/;"	kind:function	line:87
+generateHashTable	../pcy_algo.py	/^def generateHashTable(size):$/;"	kind:function	line:107
+generateTuples	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def generateTuples(line,_pass):    $/;"	kind:function	line:117
+generate_baskets	../pcy_sample.py	/^def generate_baskets(inputfile):$/;"	kind:function	line:152
+generate_bitmap	../pcy_sample.py	/^def generate_bitmap(bucket, support):$/;"	kind:function	line:144
+generate_frequent_items	../pcy_sample.py	/^def generate_frequent_items(item_counts, support):$/;"	kind:function	line:116
+generate_pairs	../pcy_sample.py	/^def generate_pairs(frequent_items, baskets, itemset_size):$/;"	kind:function	line:233
+generate_singletons	../pcy_sample.py	/^def generate_singletons(itemsets):$/;"	kind:function	line:224
+getCanFreqItemsAndNegBorder	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def getCanFreqItemsAndNegBorder(inputList,_pass,sup):$/;"	kind:function	line:49
+getFreqItems	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def getFreqItems(inputList,_pass,sup):    $/;"	kind:function	line:96
+getItemCounts	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def getItemCounts(inputList,_pass):    $/;"	kind:function	line:36
+getList	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def getList(my_dict):$/;"	kind:function	line:146
+getRandomSample	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def getRandomSample(ratio):$/;"	kind:function	line:35
+getSupportValue	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def getSupportValue(sup):$/;"	kind:function	line:46
+getVal	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def getVal(item,my_d):$/;"	kind:function	line:23
+getVal	../pcy_algo.py	/^def getVal(item,my_d):$/;"	kind:function	line:34
+gridspec	../scratch_files/mlxtend_test.py	/^import matplotlib.gridspec as gridspec$/;"	kind:namespace	line:3
+gs	../scratch_files/mlxtend_test.py	/^gs = gridspec.GridSpec(2, 2)$/;"	kind:variable	line:25
+hashTable	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^hashTable={}$/;"	kind:variable	line:6
+hashTable	../pcy_algo.py	/^hashTable={}$/;"	kind:variable	line:14
+hashTable1	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^                hashTable1=fill(hashTable1,line,_pass,1)$/;"	kind:variable	line:214
+hashTable1	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^            hashTable1=fill(hashTable1,line,_pass,1)$/;"	kind:variable	line:200
+hashTable1	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^hashTable1={}$/;"	kind:variable	line:10
+hashTable2	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^                hashTable2=fill(hashTable2,line,_pass-1,2)$/;"	kind:variable	line:207
+hashTable2	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^hashTable2={}$/;"	kind:variable	line:11
+hash_pair	../Data-Mining-PCY/pcy.py	/^def hash_pair(n1, n2):$/;"	kind:function	line:19
+hash_pairs	../pcy_sample.py	/^def hash_pairs(pairs, baskets, bucket_size):$/;"	kind:function	line:182
+highestNumber	../bucket_cal.py	/^highestNumber = 0$/;"	kind:variable	line:3
+initialize	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def initialize(hashTable):$/;"	kind:function	line:111
+initializeVec	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def initializeVec(Vector):    $/;"	kind:function	line:157
+iris_data	../scratch_files/mlxtend_test.py	/^from mlxtend.data import iris_data$/;"	kind:namespace	line:9
+isBitSet	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def isBitSet(bitVector,val,typeTable):    $/;"	kind:function	line:26
+isNextPassPossible	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def isNextPassPossible(_pass):$/;"	kind:function	line:162
+isNextPassPossible	../pcy_algo.py	/^def isNextPassPossible(_pass):$/;"	kind:function	line:227
+isPrint	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^isPrint=False$/;"	kind:variable	line:7
+isPrint	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^isPrint=False$/;"	kind:variable	line:18
+isPrint	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^isPrint=False$/;"	kind:variable	line:19
+isPrint	../pcy_algo.py	/^isPrint=False$/;"	kind:variable	line:26
+isPrint2	../pcy_algo.py	/^isPrint2=False$/;"	kind:variable	line:27
+item_count	../bucket_cal.py	/^item_count = len(data.split(" "))           # words in file (item count)$/;"	kind:variable	line:13
+items	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^items={}$/;"	kind:variable	line:10
+items	../pcy_algo.py	/^                items = {}$/;"	kind:variable	line:331
+items	../pcy_algo.py	/^items={}$/;"	kind:variable	line:18
+itertools	../Data-Mining-PCY/pcy.py	/^import itertools$/;"	kind:namespace	line:9
+itertools	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^import itertools$/;"	kind:namespace	line:2
+itertools	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^import itertools$/;"	kind:namespace	line:2
+itertools	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^import itertools$/;"	kind:namespace	line:5
+itertools	../pcy_algo.py	/^import itertools$/;"	kind:namespace	line:2
+itertools	../scratch_files/mlxtend_test.py	/^import itertools$/;"	kind:namespace	line:4
+labels	../scratch_files/mlxtend_test.py	/^labels = ['Logistic Regression',$/;"	kind:variable	line:28
+line	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^        line=readFile()$/;"	kind:variable	line:196
+lineCount	../bucket_cal.py	/^lineCount = 0$/;"	kind:variable	line:2
+log	../decorators.py	/^log = simplelogging.get_logger(console_level=simplelogging.DEBUG file_name="log\/pcy_log.log" console=False)$/;"	kind:variable	line:6
+log	../pcy_algo.py	/^    log = simplelogging.get_logger(console_level=-simplelogging.DEBUG)$/;"	kind:variable	line:276
+log	../pcy_algo.py	/^    log = simplelogging.get_logger(file_name="log\/pcy_log.log")$/;"	kind:variable	line:277
+logTimer	../decorators.py	/^def logTimer(func):$/;"	kind:function	line:22
+logTimer	../pcy_algo.py	/^from decorators import timer, debug, logTimer$/;"	kind:namespace	line:8
+maping_pairs_bucket	../pcy_sample.py	/^def maping_pairs_bucket(pairs, baskets, bucket_size):$/;"	kind:function	line:166
+matplotlib	../scratch_files/mlxtend_test.py	/^import matplotlib.gridspec as gridspec$/;"	kind:namespace	line:3
+matplotlib	../scratch_files/mlxtend_test.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:2
+mlxtend_test.py	../scratch_files/mlxtend_test.py	1;"	kind:file	line:1
+my_dict	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^my_dict={}$/;"	kind:variable	line:15
+my_dict	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^my_dict={}$/;"	kind:variable	line:16
+my_dict	../pcy_algo.py	/^my_dict={}$/;"	kind:variable	line:24
+nayak_nandan_multistage.py	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	1;"	kind:file	line:1
+nayak_nandan_pcy.py	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	1;"	kind:file	line:1
+nayak_nandan_toivonen.py	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	1;"	kind:file	line:1
+negBorder	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^negBorder={}$/;"	kind:variable	line:17
+np	../apriori_algo.py	/^import numpy as np$/;"	kind:namespace	line:5
+np	../scratch_files/mlxtend_test.py	/^import numpy as np$/;"	kind:namespace	line:1
+num_baskets	../Data-Mining-PCY/pcy.py	/^num_baskets = 881$/;"	kind:variable	line:14
+num_buckets	../Data-Mining-PCY/pcy.py	/^num_buckets = 10$/;"	kind:variable	line:13
+numbering	../pcy_sample.py	/^def numbering(pairs):$/;"	kind:function	line:214
+os	../filem.py	/^import os$/;"	kind:namespace	line:2
+os	../pcy_algo.py	/^import os$/;"	kind:namespace	line:6
+pair	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^pair=2$/;"	kind:variable	line:9
+pair	../pcy_algo.py	/^pair=2$/;"	kind:variable	line:17
+pairs_hashtable	../Data-Mining-PCY/pcy.py	/^pairs_hashtable = {}$/;"	kind:variable	line:11
+pcy	../Data-Mining-PCY/pcy.py	/^def pcy(baskets, tHold, start):$/;"	kind:function	line:22
+pcy	../pcy_sample.py	/^def pcy(inputfile, support, bucket_size):$/;"	kind:function	line:11
+pcy.py	../Data-Mining-PCY/pcy.py	1;"	kind:file	line:1
+pcy_algo.py	../pcy_algo.py	1;"	kind:file	line:1
+pcy_pass_one	../pcy_sample.py	/^def pcy_pass_one(inputfile, candidates, support, bucket_size):$/;"	kind:function	line:57
+pcy_pass_two	../pcy_sample.py	/^def pcy_pass_two(inputfile, ans_one, bucket_size):$/;"	kind:function	line:76
+pcy_sample.py	../pcy_sample.py	1;"	kind:file	line:1
+pd	../apriori_algo.py	/^import pandas as pd$/;"	kind:namespace	line:1
+pd	../apriori_algo_ben.py	/^import pandas as pd$/;"	kind:namespace	line:1
+plot_decision_regions	../scratch_files/mlxtend_test.py	/^from mlxtend.plotting import plot_decision_regions$/;"	kind:namespace	line:10
+plt	../scratch_files/mlxtend_test.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:2
+possible_pairs	../bucket_cal.py	/^possible_pairs = (t_basket_count * (avg_item_count * (avg_item_count -1))) \/ 2$/;"	kind:variable	line:18
+printFreqItems	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def printFreqItems(Idx):$/;"	kind:function	line:83
+printFreqItems	../pcy_algo.py	/^def printFreqItems(Idx):$/;"	kind:function	line:103
+printMemSize	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def printMemSize(items,_pass):$/;"	kind:function	line:51
+printMemSize	../pcy_algo.py	/^def printMemSize(items,_pass):$/;"	kind:function	line:70
+printMemSizeHashTable	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def printMemSizeHashTable(candidateType):$/;"	kind:function	line:57
+printMemSizeHashTable	../pcy_algo.py	/^def printMemSizeHashTable(candidateType):$/;"	kind:function	line:76
+random	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^import random$/;"	kind:namespace	line:4
+re	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^import re$/;"	kind:namespace	line:1
+re	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^import re$/;"	kind:namespace	line:1
+re	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^import re$/;"	kind:namespace	line:3
+re	../pcy_algo.py	/^import re$/;"	kind:namespace	line:1
+re	../pcy_sample.py	/^import re$/;"	kind:namespace	line:9
+readFile	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def readFile():$/;"	kind:function	line:102
+reader	../pcy_algo.py	/^                reader = csv.reader(csvfile)$/;"	kind:variable	line:318
+repeat	../apriori_algo_ben.py	/^from decorators import debug, timer, repeat$/;"	kind:namespace	line:5
+repeat	../decorators.py	/^def repeat(_func=None, *, num_times=2):$/;"	kind:function	line:73
+repeat	../scratch_files/mlxtend_test.py	/^                         repeat=2)):$/;"	kind:variable	line:36
+run	../Data-Mining-PCY/pcy.py	/^def run(tHold, num_baskets, file_name):$/;"	kind:function	line:84
+s_frequency_threshold	../bucket_cal.py	/^s_frequency_threshold = []$/;"	kind:variable	line:6
+samplingRate	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^samplingRate=0.5$/;"	kind:variable	line:14
+simplelogging	../decorators.py	/^import simplelogging$/;"	kind:namespace	line:3
+simplelogging	../pcy_algo.py	/^import simplelogging$/;"	kind:namespace	line:9
+singletonIdx	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^singletonIdx=0$/;"	kind:variable	line:8
+singletonIdx	../pcy_algo.py	/^singletonIdx=0$/;"	kind:variable	line:16
+size	../pcy_algo.py	/^                    size = _pass - 1$/;"	kind:variable	line:337
+size	../pcy_algo.py	/^            size = 0$/;"	kind:variable	line:328
+slow_down	../decorators.py	/^def slow_down(func):$/;"	kind:function	line:65
+splitData	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^def splitData(line_list,splitRatio):$/;"	kind:function	line:24
+start	../pcy_algo.py	/^            start = time.time()  # Timer stop$/;"	kind:variable	line:325
+subPass	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^                subPass=1$/;"	kind:variable	line:210
+subPass	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^                subPass=2$/;"	kind:variable	line:208
+subPass	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^    subPass=1$/;"	kind:variable	line:191
+support	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^support=int(sys.argv[2]) #Replace with Sys.argv$/;"	kind:variable	line:5
+support	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^support=int(sys.argv[2])$/;"	kind:variable	line:13
+support	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^support=int(sys.argv[2])$/;"	kind:variable	line:13
+support	../pcy_algo.py	/^            support = int(threshold * chunk_size)$/;"	kind:variable	line:323
+support_threshold	../Data-Mining-PCY/pcy.py	/^support_threshold = 0.1$/;"	kind:variable	line:15
+sys	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^import sys$/;"	kind:namespace	line:3
+sys	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^import sys$/;"	kind:namespace	line:3
+sys	../Finding-Frequent-Item-Sets/nayak_nandan_toivonen.py	/^import sys$/;"	kind:namespace	line:2
+sys	../pcy_algo.py	/^import sys$/;"	kind:namespace	line:3
+sys	../pcy_sample.py	/^import sys$/;"	kind:namespace	line:8
+t_basket_count	../bucket_cal.py	/^t_basket_count = len(data.split("\\n"))      # lines in file (basket count)$/;"	kind:variable	line:14
+thresholds	../pcy_algo.py	/^    thresholds = [0.01, 0.05, 0.1]$/;"	kind:variable	line:281
+time	../Data-Mining-PCY/pcy.py	/^import time$/;"	kind:namespace	line:8
+time	../apriori_algo.py	/^import time$/;"	kind:namespace	line:4
+time	../apriori_algo_ben.py	/^import time$/;"	kind:namespace	line:4
+time	../decorators.py	/^import time$/;"	kind:namespace	line:2
+time	../pcy_algo.py	/^import time$/;"	kind:namespace	line:5
+timer	../apriori_algo_ben.py	/^from decorators import debug, timer, repeat$/;"	kind:namespace	line:5
+timer	../decorators.py	/^def timer(func):$/;"	kind:function	line:9
+timer	../pcy_algo.py	/^from decorators import timer, debug, logTimer$/;"	kind:namespace	line:8
+update	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^def update(hashTable,line,_pass,tableType):$/;"	kind:function	line:131
+updateFreqItems	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def updateFreqItems(items):$/;"	kind:function	line:76
+updateFreqItems	../pcy_algo.py	/^def updateFreqItems(items):$/;"	kind:function	line:96
+updateHashTable	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^def updateHashTable(line,my_dict,size):$/;"	kind:function	line:34
+updateHashTable	../pcy_algo.py	/^def updateHashTable(line, my_dict, size):$/;"	kind:function	line:47
+weight	../Finding-Frequent-Item-Sets/nayak_nandan_multistage.py	/^weight=0$/;"	kind:variable	line:14
+weight	../Finding-Frequent-Item-Sets/nayak_nandan_pcy.py	/^weight=0$/;"	kind:variable	line:15
+weight	../pcy_algo.py	/^weight=0$/;"	kind:variable	line:23
+wrapper_debug	../decorators.py	/^    def wrapper_debug(*args, **kwargs):$/;"	kind:function	line:55
+wrapper_decorator	../decorators.py	/^    def wrapper_decorator(*args, **kwargs):$/;"	kind:function	line:45
+wrapper_do_twice	../decorators.py	/^    def wrapper_do_twice(*args, **kwargs):$/;"	kind:function	line:38
+wrapper_repeat	../decorators.py	/^        def wrapper_repeat(*args, **kwargs):$/;"	kind:function	line:76
+wrapper_slow_down	../decorators.py	/^    def wrapper_slow_down(*args, **kwargs):$/;"	kind:function	line:68
+wrapper_timer	../decorators.py	/^    def wrapper_timer(*args, **kwargs):$/;"	kind:function	line:12
+wrapper_timer	../decorators.py	/^    def wrapper_timer(*args, **kwargs):$/;"	kind:function	line:26

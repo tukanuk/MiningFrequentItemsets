@@ -4,7 +4,7 @@ from mlxtend.frequent_patterns import apriori
 import time
 from decorators import debug, timer, repeat
 
-@repeat
+@debug
 @timer
 def ap():
     data_lines = open('data/data.txt').readlines()
