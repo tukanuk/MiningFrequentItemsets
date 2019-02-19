@@ -4,13 +4,16 @@ import sys
 import csv
 import time
 import os
+import pandas as pd
+import numpy as np
 from shutil import copyfile
-from decorators import timer, debug, logTimer
-import simplelogging
+# from decorators import timer, debug, logTimer
+# import simplelogging
 
 
 #Define all macros
-fileName=sys.argv[1]        # arg 1 filename
+# fileName=sys.argv[1]        # arg 1 filename
+fileName='data/data.txt'
 hashTable={}
 bitVector={}
 singletonIdx=0
@@ -19,7 +22,8 @@ items={}
 freqItems=[]
 freqItemsCurItr=[]
 #support=int(sys.argv[2])    # arg 2 support threshold
-bucketSize=int(sys.argv[2]) # arg 3 bucket size
+# bucketSize=int(sys.argv[2]) # arg 3 bucket size
+bucketSize=1000 # arg 3 bucket size
 weight=0
 my_dict={}
 bitVector=[]
@@ -43,7 +47,7 @@ def addWeights(d, basket):
             d[item] = weight
             weight += 1
 
-@logTimer
+# @logTimer
 def updateHashTable(line, my_dict, size):
     global hashTable
     v1 = v2 = total = 0
@@ -67,18 +71,18 @@ def updateHashTable(line, my_dict, size):
     # then % bucket size. Doesn't this limit destination to the sum?
     # TODO How can we get a better hash?
 
-@logTimer
+# @logTimer
 def printMemSize(items,_pass):
     if _pass==0:
         print ("memory for item counts: %d"%((8+_pass*4)*len(items)))
     else:
         print ("memory for candidates counts of size %d : %d"%(_pass+1,(8+_pass*4)*(len(items))))
 
-@logTimer
+# @logTimer
 def printMemSizeHashTable(candidateType):
     print ("memory for hash table counts for size %d itemsets: %d"%(candidateType,4*len(hashTable)))
 
-@logTimer
+# @logTimer
 def generateFreqCandidates(items):
     global freqItemsCurItr
     temp = []
@@ -95,7 +99,7 @@ def generateFreqCandidates(items):
 
     return freqItemsCurItr
 
-@logTimer
+# @logTimer
 def updateFreqItems(items):
     global freqItems
     freqItems.append(items)
@@ -103,23 +107,23 @@ def updateFreqItems(items):
         print ("FreqItems:")
         print (freqItems)
 
-@logTimer
+# @logTimer
 def printFreqItems(Idx):
     global freqItems
     print (freqItems[Idx])
 
-@logTimer
+# @logTimer
 def generateHashTable(size):
     global hashTable
     for i in range(size):
         hashTable[i] = 0
 
-@logTimer
+# @logTimer
 def generateCandidates(candidates, _pass):
     candidateItems = list(itertools.combinations(candidates, _pass + 1))
     return candidateItems
 
-@logTimer
+# @logTimer
 def countCandidatesAndFillHashTable(_pass):
     global items
     global my_dict  # Has weights for each item in the basket
@@ -163,7 +167,7 @@ def countCandidatesAndFillHashTable(_pass):
         updateHashTable(basket, my_dict, _pass + 2)
     my_file.close()
 
-@logTimer
+# @logTimer
 def countCandidatesAndFillHashTable2(_pass, dataset):
     global items
     global my_dict  # Has weights for each item in the basket
@@ -177,18 +181,18 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
         if (_pass==0):                    
             addWeights(my_dict,basket)
         
-        logTimerStart = time.time()
+        # logTimerStart = time.time()
         itemsInBasket = list(itertools.combinations(basket,_pass+1))
-        logTimerEnd = time.time()
-        if ((logTimerEnd - logTimerStart) > 0.1): log.debug("Line 171: %f", (logTimerEnd-logTimerStart) )
+        # logTimerEnd = time.time()
+        # if ((logTimerEnd - logTimerStart) > 0.1): log.debug("Line 171: %f", (logTimerEnd-logTimerStart) )
 
         for item in itemsInBasket:
             if (_pass!=0):
 
-                logTimerStart = time.time()
+                # logTimerStart = time.time()
                 item_1=list(itertools.combinations(item,_pass))
-                logTimerEnd = time.time()
-                if ((logTimerEnd - logTimerStart) > 0.1): log.info("Line 181: %f", (logTimerEnd-logTimerStart) )
+                # logTimerEnd = time.time()
+                # if ((logTimerEnd - logTimerStart) > 0.1): log.info("Line 181: %f", (logTimerEnd-logTimerStart) )
 
                 for key in item_1:
                     if key in freqItems:
@@ -209,7 +213,7 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
         updateHashTable(basket, my_dict, _pass + 2)
         # my_file.close()
 
-@logTimer
+# @logTimer
 def generateBitVector():
     global bitVector
     global bitMapSize
@@ -228,7 +232,7 @@ def generateBitVector():
     bitMapSize=len(bitVector)
     return flag
 
-@logTimer
+# @logTimer
 def isNextPassPossible(_pass):
     global items
     global freqItemsCurItr
@@ -244,7 +248,7 @@ def isNextPassPossible(_pass):
         return False
     
 # Outputting to a CSV 
-@logTimer
+# @logTimer
 def OutputCSV(data_result):
     """ Takes a list as input and output as as CSV
         A check is made to see if if a file exists and a 
@@ -279,14 +283,14 @@ if __name__ == '__main__':
     # data_lines = open(fileName).readlines()
     
     # simplelogger
-    log = simplelogging.get_logger(console_level=-simplelogging.DEBUG, file_name="log/pcy_log.log", console=False)
+    # log = simplelogging.get_logger(console_level=-simplelogging.DEBUG, file_name="log/pcy_log.log", console=False)
 
     # Testing sets
     # chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    chunk_percent = [0.1] #, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     thresholds = [0.01] #, 0.05, 0.1]
 
-    log.debug("START debug session")
+    # log.debug("START debug session")
     # log.info("some debug")
     # log.warning("some debug")
     # log.error("some debug")
@@ -297,8 +301,8 @@ if __name__ == '__main__':
     basket_count = len(data_lines)
 
     # Basic file info
-    print ("%d Baskets" % (basket_count))
-    print ("%d Buckets" % (bucketSize))
+    # print ("%d Baskets" % (basket_count))
+    # print ("%d Buckets" % (bucketSize))
     print ("%Thr Supp Chunk  Fre      Time")
 
     # Setup for CSV
@@ -313,20 +317,25 @@ if __name__ == '__main__':
             # get line count for chunk
             chunk_size = int(basket_count * percent)
 
-            # for entry in data_lines[: (chunk_size + 1)]:
-            #     cells = []
-            #     cells = entry.split(",")
-            #     dataset.append(cells[:-1])
+
+            #finding max value for bucket size
+            max_val = 0
 
             # create chunked dataset
             dataset = []
             with open(fileName) as csvfile:
                 reader = csv.reader(csvfile)
                 for row in itertools.islice(reader, chunk_size + 1):
-                    dataset.append(row)
+                    cells = [ int(i) for i in row[0].split(" ")[:-1] ]
+                    dataset.append(cells)
+                    if max_val != max(cells):
+                        max_val = max(cells)
 
             # override arg for support
             support = int(threshold * chunk_size)
+
+            #bucket size is set to 2 times the sum of max in current chunk
+            bucketSize = max_val
 
             start = time.time()  # Timer start
 
@@ -353,6 +362,14 @@ if __name__ == '__main__':
             data_result.append(data_result_line)
 
             print ("%.2f %4d %5d %4d %9.3f" % (threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
+
+            # values = []
+            # temp_df = pd.DataFrame( columns=['Keys', 'Support'])
+            # for key in items:
+            #     values = [key, items[key]]
+            #     temp_df.loc[len(temp_df)] = values
+            #
+            # temp_df.to_csv('data/pcy_test.csv',index=False)
 
     # print (data_result)
     OutputCSV(data_result)

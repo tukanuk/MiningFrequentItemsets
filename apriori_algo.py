@@ -21,7 +21,7 @@ def alg():
     data_lines = open('data/data.txt').readlines()
 
     chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    thresholds = [0.01, 0.05, 0.1]
+    thresholds = [0.01] #, 0.05, 0.1
 
     result_df = pd.DataFrame(columns=['Threshold','Frequent Set Count','Execution Time','Chunk Size',
                                                                                     'Chunk Percent'])
@@ -46,16 +46,32 @@ def alg():
 
             df = pd.DataFrame(te_table, columns=te.columns_)
 
+            #Additional measures to ensure that all itemsets and above are considered
+            #Note: Previous version was ignoring min support and only considering above support values
+            #Note: Round to 1 decimal because round to 0 seems to be skipping some values again.
+            min_support = threshold * chunk_size
+            if round( min_support, 1) != int(min_support):  #If there is a round-off error it will be caught here
+                #Try lowering the threshold to accomodate the require threshold as well
+                min_support = (int(min_support) - 1)/chunk_size
+            else:
+                min_support = threshold
+
             #Max len implemented to improve performance and runtime
-            frequent_items = apriori(df, min_support=threshold, use_colnames=True, max_len=2)
+            frequent_items = apriori(df, min_support=min_support, use_colnames=True, max_len=2)        #threshold
 
             #Pick sets with only two items in them
             frequent_items['length'] = frequent_items['itemsets'].apply(lambda iset : len(iset))
             frequent_items = frequent_items[(frequent_items['length']) == 2]
 
-            frequent_set_stack = np.column_stack ([ [int(threshold * 100)] * len(frequent_items['itemsets']),
+            # frequent_set_stack = np.column_stack ([ [int(threshold * 100)] * len(frequent_items['itemsets']),
+            #                                         [chunk_size] * len(frequent_items['itemsets']),
+            #                                         frequent_items['itemsets'] ])
+
+            frequent_set_stack = np.column_stack ([ frequent_items['support'],
                                                     [chunk_size] * len(frequent_items['itemsets']),
                                                     frequent_items['itemsets'] ])
+
+
             frequent_sets_temp = pd.DataFrame(frequent_set_stack,columns=['Threshold','Chunk Size','Frequent Set'])
             frequent_sets = pd.concat([frequent_sets,frequent_sets_temp])
 
@@ -69,10 +85,12 @@ def alg():
 
 
     # result_df.to_csv('data/apriori_result_3.csv', index=False)
-    writer = pd.ExcelWriter('data/apriori_result.xlsx',engine='xlsxwriter')
-    result_df.to_excel(writer,sheet_name='Result', index=False)
-    frequent_sets.to_excel(writer,sheet_name='Sets', index=False)
-    writer.save()
+    # writer = pd.ExcelWriter('data/apriori_result.xlsx',engine='xlsxwriter')
+    # result_df.to_excel(writer,sheet_name='Result', index=False)
+    # frequent_sets.to_excel(writer,sheet_name='Sets', index=False)
+    # writer.save()
+
+    # frequent_sets.to_csv('data/aprior_test.csv', index=False)
 
 if __name__ == "__main__":
     alg()
