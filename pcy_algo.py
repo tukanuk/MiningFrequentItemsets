@@ -7,8 +7,8 @@ import os
 import pandas as pd
 import numpy as np
 from shutil import copyfile
-# from decorators import timer, debug, logTimer
-# import simplelogging
+from decorators import timer, debug, logTimer
+import simplelogging
 
 
 #Define all macros
@@ -255,13 +255,13 @@ def OutputCSV(data_result):
         numerical increment is added until a unique file name is made
     """ 
     inc = 0
-    ffname = "data/pcy_result_t" + str(totalTestCount) + "_b" + str(bucketSize) + "_" + str(inc) + ".csv"
+    ffname = "data/pcy_results/pcy_result_t" + str(totalTestCount) + "_b" + str(bucketSize) + "_" + str(inc) + ".csv"
 
     # turn on and off auto file incrementer
     if(1):
         while os.path.isfile(ffname):
             inc += 1
-            ffname = "data/pcy_result_t" + str(totalTestCount) + "_b" + str(bucketSize) + "_" + str(inc) + ".csv"
+            ffname = "data/pcy_results/pcy_result_t" + str(totalTestCount) + "_b" + str(bucketSize) + "_" + str(inc) + ".csv"
 
     with open(ffname, 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=",")
@@ -270,7 +270,7 @@ def OutputCSV(data_result):
     
     # makes a copy with the _0 suffix so you can have an 
     # auto refresing csv of results open and retain past runs
-    copyfile(ffname, "data/pcy_result_0.csv")
+    copyfile(ffname, "data/pcy_results/pcy_result_0.csv")
 
 
 #Generating items-singletons
@@ -283,14 +283,14 @@ if __name__ == '__main__':
     # data_lines = open(fileName).readlines()
     
     # simplelogger
-    # log = simplelogging.get_logger(console_level=-simplelogging.DEBUG, file_name="log/pcy_log.log", console=False)
+    log = simplelogging.get_logger(console_level=-simplelogging.DEBUG, file_name="log/pcy_log.log", console=False)
 
     # Testing sets
     # chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    chunk_percent = [0.01, 0.05, 0.1]#, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     thresholds = [0.01] #, 0.05, 0.1]
 
-    # log.debug("START debug session")
+    log.debug("START debug session")
     # log.info("some debug")
     # log.warning("some debug")
     # log.error("some debug")
@@ -305,7 +305,7 @@ if __name__ == '__main__':
     testCount = 0
 
     # Output Run info to debug
-    log.info("START param: %s (%d baskets) %d buckets", fileName, basket_count, bucketSize)
+    log.info("START param: %s (%d baskets)", fileName, basket_count)
     # log.info("some debug")
     # log.warning("some debug")
     # log.error("some debug")
@@ -313,9 +313,8 @@ if __name__ == '__main__':
 
     # Basic file info
     print ("\n%d Baskets" % (basket_count))
-    print ("%d Buckets" % (bucketSize))
     print ("%d Tests\n" % (totalTestCount))
-    print (" # %Thr Supp Chunk  Fre      Time")
+    print (" # %Thr Supp Chunk  Fre      Time   Buckets")
 
     # Setup for CSV
     data_result = []
@@ -340,14 +339,14 @@ if __name__ == '__main__':
                 for row in itertools.islice(reader, chunk_size + 1):
                     cells = [ int(i) for i in row[0].split(" ")[:-1] ]
                     dataset.append(cells)
-                    if max_val != max(cells):
+                    if max_val < max(cells): # corrected ti < instead of !=
                         max_val = max(cells)
 
             # support threshold
             support = int(threshold * chunk_size)
 
             #bucket size is set to 2 times the sum of max in current chunk
-            bucketSize = max_val
+            bucketSize = 2 * max_val
             log.info("SET: %d (%.2f) support, %d (%.2f) chunk ", support, threshold, chunk_size, percent)
 
             start = time.time()  # Timer start
@@ -377,8 +376,9 @@ if __name__ == '__main__':
             data_result_line = [testCount, threshold, support, chunk_size, percent, len(frequent_items), (end-start)*1000]
             data_result.append(data_result_line)
 
-            print ("%2d %.2f %4d %5d %4d %9.3f" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
-            log.info("RESULT: [%d of %d] %.2f %4d %5d %4d %9.3f" % (testCount, totalTestCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
+            print ("%2d %.2f %4d %5d %4d %9.1f %9d" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000, bucketSize))
+            # print ("\n[%d Buckets]\n" % (bucketSize))
+            log.info("RESULT: [%d of %d] %d buckets: %.2f %4d %5d %4d %9.1f" % (testCount, totalTestCount, bucketSize, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
 
             # values = []
             # temp_df = pd.DataFrame( columns=['Keys', 'Support'])
