@@ -72,15 +72,15 @@ def updateHashTable(line, my_dict, size):
     # TODO How can we get a better hash?
 
 # @logTimer
-def printMemSize(items,_pass):
-    if _pass==0:
-        print ("memory for item counts: %d"%((8+_pass*4)*len(items)))
-    else:
-        print ("memory for candidates counts of size %d : %d"%(_pass+1,(8+_pass*4)*(len(items))))
+# def printMemSize(items,_pass):
+#     if _pass==0:
+#         print ("memory for item counts: %d"%((8+_pass*4)*len(items)))
+#     else:
+#         print ("memory for candidates counts of size %d : %d"%(_pass+1,(8+_pass*4)*(len(items))))
 
 # @logTimer
-def printMemSizeHashTable(candidateType):
-    print ("memory for hash table counts for size %d itemsets: %d"%(candidateType,4*len(hashTable)))
+# def printMemSizeHashTable(candidateType):
+#     print ("memory for hash table counts for size %d itemsets: %d"%(candidateType,4*len(hashTable)))
 
 # @logTimer
 def generateFreqCandidates(items):
@@ -108,9 +108,9 @@ def updateFreqItems(items):
         print (freqItems)
 
 # @logTimer
-def printFreqItems(Idx):
-    global freqItems
-    print (freqItems[Idx])
+# def printFreqItems(Idx):
+#     global freqItems
+#     print (freqItems[Idx])
 
 # @logTimer
 def generateHashTable(size):
@@ -119,9 +119,9 @@ def generateHashTable(size):
         hashTable[i] = 0
 
 # @logTimer
-def generateCandidates(candidates, _pass):
-    candidateItems = list(itertools.combinations(candidates, _pass + 1))
-    return candidateItems
+# def generateCandidates(candidates, _pass):
+#     candidateItems = list(itertools.combinations(candidates, _pass + 1))
+#     return candidateItems
 
 # @logTimer
 def countCandidatesAndFillHashTable(_pass):
@@ -255,13 +255,13 @@ def OutputCSV(data_result):
         numerical increment is added until a unique file name is made
     """ 
     inc = 0
-    ffname = "data/pcy_result_" + str(inc) + ".csv"
+    ffname = "data/pcy_result_t" + str(totalTestCount) + "_b" + str(bucketSize) + "_" + str(inc) + ".csv"
 
     # turn on and off auto file incrementer
     if(1):
         while os.path.isfile(ffname):
             inc += 1
-            ffname = "data/pcy_result_" + str(inc) + ".csv"
+            ffname = "data/pcy_result_t" + str(totalTestCount) + "_b" + str(bucketSize) + "_" + str(inc) + ".csv"
 
     with open(ffname, 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=",")
@@ -300,14 +300,26 @@ if __name__ == '__main__':
     data_lines = open(fileName).readlines()
     basket_count = len(data_lines)
 
+    # calculate total number of tests
+    totalTestCount = len(chunk_percent) * len(thresholds)
+    testCount = 0
+
+    # Output Run info to debug
+    log.info("START param: %s (%d baskets) %d buckets", fileName, basket_count, bucketSize)
+    # log.info("some debug")
+    # log.warning("some debug")
+    # log.error("some debug")
+    # log.critical("some debug")
+
     # Basic file info
-    # print ("%d Baskets" % (basket_count))
-    # print ("%d Buckets" % (bucketSize))
-    print ("%Thr Supp Chunk  Fre      Time")
+    print ("\n%d Baskets" % (basket_count))
+    print ("%d Buckets" % (bucketSize))
+    print ("%d Tests\n" % (totalTestCount))
+    print (" # %Thr Supp Chunk  Fre      Time")
 
     # Setup for CSV
     data_result = []
-    data_result_line = ["threshold", "support", "chunk_size", "frequent_items", "time"]
+    data_result_line = ["#", "threshold", "support", "chunk_size", "c_%", "f_items", "time"]
     data_result.append(data_result_line)
 
     # Nested loops for test sets
@@ -331,11 +343,12 @@ if __name__ == '__main__':
                     if max_val != max(cells):
                         max_val = max(cells)
 
-            # override arg for support
+            # support threshold
             support = int(threshold * chunk_size)
 
             #bucket size is set to 2 times the sum of max in current chunk
             bucketSize = max_val
+            log.info("SET: %d (%.2f) support, %d (%.2f) chunk ", support, threshold, chunk_size, percent)
 
             start = time.time()  # Timer start
 
@@ -345,8 +358,10 @@ if __name__ == '__main__':
                 # print "\nPASS : %d"%(_pass+1)
                 items = {}
                 generateHashTable(bucketSize)
+                
                 # countCandidatesAndFillHashTable(_pass)
                 countCandidatesAndFillHashTable2(_pass, dataset)
+                
                 # fillHashTable()
                 if _pass != 0:
                     size = _pass - 1
@@ -355,13 +370,15 @@ if __name__ == '__main__':
                 #     print
                 _pass += 1
             
+            testCount += 1
             end = time.time() # Timer stop
 
             # Build a list for use in CSV output
-            data_result_line = [threshold, support, chunk_size, len(frequent_items), (end-start)*1000]
+            data_result_line = [testCount, threshold, support, chunk_size, percent, len(frequent_items), (end-start)*1000]
             data_result.append(data_result_line)
 
-            print ("%.2f %4d %5d %4d %9.3f" % (threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
+            print ("%2d %.2f %4d %5d %4d %9.3f" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
+            log.info("RESULT: [%d of %d] %.2f %4d %5d %4d %9.3f" % (testCount, totalTestCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
 
             # values = []
             # temp_df = pd.DataFrame( columns=['Keys', 'Support'])
