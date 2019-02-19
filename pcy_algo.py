@@ -33,6 +33,7 @@ bitMapSize=0
 
 frequent_items=[]             # list of the frequent items 
 
+candidatePair = {}
 
 #Define all functions
 def getVal(item,my_d):
@@ -173,7 +174,76 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
     global my_dict  # Has weights for each item in the basket
     global freqItems
     flag = False
-    weight = -1
+
+    global candidatePair
+    # weight = -1 # pretty sure this is unused 
+
+    # ***Counting Candidates***#
+
+    #### I found the problem? 
+    # on the second pass it reenters this loop again adn check is if item in the original basket is a frequent pair
+    # it compares the entire file to the freqItems
+    # TODO fix this problem. Walk through the debugger again. I think the main error is trying ot reuse this funciton for the second pass. 
+    # Just rewrite it for pass two. 
+    for basket in dataset:
+        if (_pass==0):                    
+            addWeights(my_dict,basket) # if not present in my_dict add to my_dict
+            itemsInBasket = list(itertools.combinations(basket,_pass+1))
+        
+            for item in itemsInBasket:
+                # first pass
+                # items[item] += 1
+                if item in items:
+                    items[item] += 1
+                else:
+                    items[item] = 1
+                # if (_pass!=0):
+
+                #     # logTimerStart = time.time()
+                #     item_1=list(itertools.combinations(item,_pass))  # TODO unnessary when dealing with pairs?
+                #     # logTimerEnd = time.time()
+                #     # if ((logTimerEnd - logTimerStart) > 0.1): log.info("Line 181: %f", (logTimerEnd-logTimerStart) )
+
+                #     for key in item_1:
+                #         if key in freqItems:
+                #             flag = True
+                #         else:
+                #             flag = False
+                #             break
+                #     if flag == True:
+                #         if item in items:       # TODO if both flags are true can't this comparision be skipped? -> items[item] += 1
+                #             items[item] += 1
+                #         else:
+                #             items[item] = 1
+            updateHashTable(basket, my_dict, _pass + 2) # TODO no hash table on second pass
+        else:
+            freqItemInBasket = []
+            
+            for item in basket:
+                for s in freqItems: # TODO I think the code here is producing bad results 
+                   if item in s: 
+                    freqItemInBasket.append(item)
+            combination_freqItemInBasket = list(itertools.combinations(freqItemInBasket, _pass +1))
+            
+            for pair in combination_freqItemInBasket:
+                total = 0
+                for item in pair:
+                    total += item
+                hash = total % bucketSize
+                if bitVector[hash] == 1:
+                    if pair in candidatePair:
+                        candidatePair[pair] +=1
+                    else:
+                        candidatePair[pair] = 1
+                
+    # print (candidatePair)
+
+def countCandidatesAndFillHashTable3(_pass, dataset):
+    global items
+    global my_dict  # Has weights for each item in the basket
+    global freqItems
+    flag = False
+    # weight = -1 # pretty sure this is unused 
 
     # ***Counting Candidates***#
 
@@ -195,7 +265,7 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
             if (_pass!=0):
 
                 # logTimerStart = time.time()
-                item_1=list(itertools.combinations(item,_pass))
+                item_1=list(itertools.combinations(item,_pass))  # TODO unnessary when dealing with pairs?
                 # logTimerEnd = time.time()
                 # if ((logTimerEnd - logTimerStart) > 0.1): log.info("Line 181: %f", (logTimerEnd-logTimerStart) )
 
@@ -206,16 +276,16 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
                         flag = False
                         break
                 if flag == True:
-                    if item in items:
+                    if item in items:       # TODO if both flags are true can't this comparision be skipped? -> items[item] += 1
                         items[item] += 1
                     else:
                         items[item] = 1
-            else:
+            else:                           # first pass
                 if item in items:
                     items[item] += 1
                 else:
                     items[item] = 1
-        updateHashTable(basket, my_dict, _pass + 2)
+        updateHashTable(basket, my_dict, _pass + 2) # TODO no hash table on second pass
         # my_file.close()
 
 # @logTimer
@@ -244,7 +314,7 @@ def isNextPassPossible(_pass):
     global frequent_items
     bitVectorFlag = False
     frequent_items = generateFreqCandidates(items)  # list of frequent items
-    bitVectorFlag = generateBitVector()
+    bitVectorFlag = generateBitVector()             # TODO no bitvector on second pass
     if (len(freqItemsCurItr) > 0 and bitVectorFlag == True and _pass < 2):
         return True
     else:
@@ -290,7 +360,7 @@ if __name__ == '__main__':
 
     # Testing sets
     # chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    chunk_percent = [0.01] #, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     thresholds = [0.01] #, 0.05, 0.1]
 
     log.debug("START debug session")
@@ -360,14 +430,24 @@ if __name__ == '__main__':
             while (_pass == 0 or isNextPassPossible(_pass) == True):
                 # print "\nPASS : %d"%(_pass+1)
                 items = {}
-                generateHashTable(bucketSize)
+                generateHashTable(bucketSize) # TODO no point in zeroing out table on second pass is there a .destroy?
                 
                 # countCandidatesAndFillHashTable(_pass)
                 countCandidatesAndFillHashTable2(_pass, dataset)
-                
+
+                finalList = {}    
                 # fillHashTable()
                 if _pass != 0:
                     size = _pass - 1
+
+                    # finalList = {}
+                    total = 0
+
+                    for pair in candidatePair:
+                        if candidatePair[pair] > support:
+                            finalList[pair] = candidatePair[pair]
+
+                    # print ("%d frequent pairs: %s" % (len(finalList), finalList))
 
                 # if len(items)!=0:
                 #     print
@@ -377,13 +457,14 @@ if __name__ == '__main__':
             end = time.time() # Timer stop
 
             # Build a list for use in CSV output
-            data_result_line = [testCount, threshold, support, chunk_size, percent, len(frequent_items), (end-start)*1000]
+            data_result_line = [testCount, threshold, support, chunk_size, percent, len(finalList), (end-start)*1000]
             data_result.append(data_result_line)
 
-            print ("%2d %.2f %4d %5d %4d %9.1f %9d" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000, bucketSize))
-            print ("%2d %.2f %4d %5d %4d %9.1f %9d -> %d frequent item sets of size %d: %s" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000, bucketSize, len(frequent_items), _pass, frequent_items))
+            # print ("%2d %.2f %4d %5d %4d %9.1f %9d" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000, bucketSize))
+            # print ("%2d %.2f %4d %5d %4d %9.1f %9d -> %d frequent item sets of size %d: %s" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000, bucketSize, len(frequent_items), _pass, frequent_items))
+            print ("%2d %.2f %4d %5d %4d %9.1f %9d -> %d frequent item sets of size %d" % (testCount, threshold, support, chunk_size, len(finalList), (end-start)*1000, bucketSize, len(finalList), _pass))
             # print ("%d frequent item sets of size %d: %s" % (len(frequent_items), _pass, frequent_items))
-            log.info("RESULT: [%d of %d] %d buckets: %.2f %4d %5d %4d %9.1f" % (testCount, totalTestCount, bucketSize, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
+            log.info("RESULT: [%d of %d] %d buckets: %.2f %4d %5d %4d %9.1f" % (testCount, totalTestCount, bucketSize, threshold, support, chunk_size, len(finalList), (end-start)*1000))
 
             # values = []
             # temp_df = pd.DataFrame( columns=['Keys', 'Support'])
