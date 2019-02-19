@@ -39,7 +39,7 @@ def getVal(item,my_d):
     if item in my_d:
         return my_d[item]
 
-
+# if not present in my_dict add to my_dict
 def addWeights(d, basket):
     global weight
     for item in basket:
@@ -177,9 +177,14 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
 
     # ***Counting Candidates***#
 
+    #### I found the problem? 
+    # on the second pass it reenters this loop again adn check is if item in the original basket is a frequent pair
+    # it compares the entire file to the freqItems
+    # TODO fix this problem. Walk through the debugger again. I think the main error is trying ot reuse this funciton for the second pass. 
+    # Just rewrite it for pass two. 
     for basket in dataset:
         if (_pass==0):                    
-            addWeights(my_dict,basket)
+            addWeights(my_dict,basket) # if not present in my_dict add to my_dict
         
         # logTimerStart = time.time()
         itemsInBasket = list(itertools.combinations(basket,_pass+1))
@@ -239,8 +244,6 @@ def isNextPassPossible(_pass):
     global frequent_items
     bitVectorFlag = False
     frequent_items = generateFreqCandidates(items)  # list of frequent items
-    # if _pass > 1:
-    #     print "frequent item sets of size %d : "%(_pass), "%d " % (len(frequent_items)), frequent_items
     bitVectorFlag = generateBitVector()
     if (len(freqItemsCurItr) > 0 and bitVectorFlag == True and _pass < 2):
         return True
@@ -287,7 +290,7 @@ if __name__ == '__main__':
 
     # Testing sets
     # chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    chunk_percent = [0.01, 0.05, 0.1]#, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    chunk_percent = [0.01] #, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     thresholds = [0.01] #, 0.05, 0.1]
 
     log.debug("START debug session")
@@ -346,7 +349,8 @@ if __name__ == '__main__':
             support = int(threshold * chunk_size)
 
             #bucket size is set to 2 times the sum of max in current chunk
-            bucketSize = 2 * max_val
+            # bucketSize = 2 * max_val
+            bucketSize = 53103
             log.info("SET: %d (%.2f) support, %d (%.2f) chunk ", support, threshold, chunk_size, percent)
 
             start = time.time()  # Timer start
@@ -377,7 +381,8 @@ if __name__ == '__main__':
             data_result.append(data_result_line)
 
             print ("%2d %.2f %4d %5d %4d %9.1f %9d" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000, bucketSize))
-            # print ("\n[%d Buckets]\n" % (bucketSize))
+            print ("%2d %.2f %4d %5d %4d %9.1f %9d -> %d frequent item sets of size %d: %s" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000, bucketSize, len(frequent_items), _pass, frequent_items))
+            # print ("%d frequent item sets of size %d: %s" % (len(frequent_items), _pass, frequent_items))
             log.info("RESULT: [%d of %d] %d buckets: %.2f %4d %5d %4d %9.1f" % (testCount, totalTestCount, bucketSize, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
 
             # values = []

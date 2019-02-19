@@ -1,7 +1,7 @@
 
 lineCount = 0
 highestNumber = 0
-bucket = 10
+bucket = 50000
 frequency_threshold = [0.01, 0.05, 0.10]
 s_frequency_threshold = []
 b_hash_buckets = []
