@@ -21,7 +21,7 @@ def alg():
     data_lines = open('data/data.txt').readlines()
 
     chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    thresholds = [0.01] #, 0.05, 0.1
+    thresholds = [0.01, 0.05, 0.1]
 
     result_df = pd.DataFrame(columns=['Threshold','Frequent Set Count','Execution Time','Chunk Size',
                                                                                     'Chunk Percent'])
@@ -84,11 +84,11 @@ def alg():
             print("%d %d %.3f %d" % (int(threshold * 100), len(frequent_items.index) , ((end - start) * 1000), chunk_size))
 
 
-    # result_df.to_csv('data/apriori_result_3.csv', index=False)
-    # writer = pd.ExcelWriter('data/apriori_result.xlsx',engine='xlsxwriter')
-    # result_df.to_excel(writer,sheet_name='Result', index=False)
-    # frequent_sets.to_excel(writer,sheet_name='Sets', index=False)
-    # writer.save()
+    result_df.to_csv('data/apriori_result_3.csv', index=False)
+    writer = pd.ExcelWriter('data/apriori_result.xlsx',engine='xlsxwriter')
+    result_df.to_excel(writer,sheet_name='Result', index=False)
+    frequent_sets.to_excel(writer,sheet_name='Sets', index=False)
+    writer.save()
 
     # frequent_sets.to_csv('data/aprior_test.csv', index=False)
 
