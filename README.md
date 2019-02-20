@@ -12,13 +12,13 @@ The retail dataset contains anonymized retail market basket data (88K baskets) f
 
 ## A-Priori
 
-apriori_algo.py
+`apriori_algo.py` Tested using Python 3.7 and above
 
 Results are delivered on screen and in placed in `.csv` format in the `data` folder
 
 ## PCY
 
-pcy_algo.py
+`pcy_algo.py` Tested using Python 3.7 and above
 
 Results are delivered on screen and in placed in `.csv` format in the `data/pcy_results` folder. There are always two copies of the most recent run of the script. The file name will be `pcy_result_t[test count]_b[largest bucket used in text]]_[increment]`. In addition, the most recent run will always be: `pcy_result_0.csv`. This makes it easy to keep an editor window open with `pcy_result_0.csv` and be able to see results as soon as they are delivered. 
 
