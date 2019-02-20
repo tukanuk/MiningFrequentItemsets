@@ -21,14 +21,17 @@ def alg():
     data_lines = open('data/data.txt').readlines()
 
     chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    thresholds = [0.01]#, 0.05, 0.1]
+    thresholds = [0.01, 0.05, 0.1]
 
-    result_df = pd.DataFrame(columns=['Threshold','Frequent Set Count','Execution Time','Chunk Size',
-                                                                                    'Chunk Percent'])
-    frequent_sets = pd.DataFrame(columns=['Threshold','Chunk Size','Frequent Set'])
+    result_df = pd.DataFrame(columns=['#','Threshold','Support','Chunk Size','Frequent Set Count','Run Time'])
+
+    #Dataframe used only when frequent item sets have to be displayed/printed
+    # frequent_sets = pd.DataFrame(columns=['Threshold','Chunk Size','Frequent Set'])
+
+    print(" # Thr Support Chunk Count(F.Set) RunTime")
 
     for threshold in thresholds:
-        for percent in chunk_percent:
+        for iteration,percent in enumerate(chunk_percent):
             # format data as a list of list for next step
             dataset = []
             chunk_size = int(len(data_lines) * percent)
@@ -63,37 +66,43 @@ def alg():
             frequent_items['length'] = frequent_items['itemsets'].apply(lambda iset : len(iset))
             frequent_items = frequent_items[(frequent_items['length']) == 2]
 
+            end = time.time()  # Timer stopped
+
+            print("%2d %3d %7d %5d %12d %.3f" % (iteration + 1, int(threshold * 100), int(threshold * chunk_size),
+                                                 chunk_size, len(frequent_items.index), ((end - start) * 1000)))
+
+            #This section is for printing the frequent item sets generated per iteration
+
+            #Convert and sort frozensets to tuples for the final records
+            # frequent_items['itemsets'] = [tuple((int(tuple(x)[0]), int(tuple(x)[1])))
+            #                                                for x in frequent_items['itemsets']]
+            # frequent_items['itemsets'] = [tuple(sorted(x)) for x in frequent_items['itemsets']]
+            # frequent_items = frequent_items.sort_values(by=['itemsets'])
+            #
             # frequent_set_stack = np.column_stack ([ [int(threshold * 100)] * len(frequent_items['itemsets']),
             #                                         [chunk_size] * len(frequent_items['itemsets']),
             #                                         frequent_items['itemsets'] ])
 
-            frequent_items['itemsets'] = [tuple((int(tuple(x)[0]), int(tuple(x)[1]))) for x in frequent_items['itemsets']]
-            frequent_items['itemsets'] = [ tuple(sorted(x)) for x in frequent_items['itemsets']]
-            frequent_items = frequent_items.sort_values(by=['itemsets'])
-            frequent_set_stack = np.column_stack ([ frequent_items['support'],
-                                                    [chunk_size] * len(frequent_items['itemsets']),
-                                                    frequent_items['itemsets'] ])
+            #Experimentation for comparison with PCY
+            # frequent_set_stack = np.column_stack ([ frequent_items['supqport'],
+            #                                         [chunk_size] * len(frequent_items['itemsets']),
+            #                                         frequent_items['itemsets'] ])
 
-            frequent_sets_temp = pd.DataFrame(frequent_set_stack,columns=['Threshold','Chunk Size','Frequent Set'])
-            frequent_sets = pd.concat([frequent_sets,frequent_sets_temp])
+            # frequent_sets_temp = pd.DataFrame(frequent_set_stack,columns=['Threshold','Chunk Size','Frequent Set'])
+            # frequent_sets = pd.concat([frequent_sets,frequent_sets_temp])
 
-            end = time.time()   #Timer stopped
-
-            result_list = [int(threshold * 100),len(frequent_items.index), (end - start) * 1000,
-                                                                    chunk_size, int(percent * 100)]
+            #Creating the final result table
+            result_list = [iteration + 1, int(threshold * 100), int(threshold * chunk_size), chunk_size,
+                           len(frequent_items.index), (end - start) * 1000]
             result_df.loc[len(result_df)] = result_list
 
-            print("%d %d %.3f %d" % (int(threshold * 100), len(frequent_items.index) , ((end - start) * 1000), chunk_size))
+    result_df.to_csv('data/apriori_result.csv', index=False)
 
-
-    result_df.to_csv('data/apriori_result_3.csv', index=False)
-    writer = pd.ExcelWriter('data/apriori_result.xlsx',engine='xlsxwriter')
-    result_df.to_excel(writer,sheet_name='Result', index=False)
-    frequent_sets.to_excel(writer,sheet_name='Sets', index=False)
-    writer.save()
-
-
-    frequent_sets.to_csv('data/apriori_test.csv', index=False)
+    #Uncomment to see the sets for a particualr threshold and chunck
+    # writer = pd.ExcelWriter('data/apriori_result.xlsx',engine='xlsxwriter')
+    # result_df.to_excel(writer,sheet_name='Result', index=False)
+    # frequent_sets.to_excel(writer,sheet_name='Sets', index=False)
+    # writer.save()
 
 if __name__ == "__main__":
     alg()
