@@ -61,8 +61,9 @@ def updateHashTable(line, itemCountDict, size, max_val):
         for item in key:
             v1=getVal(item,itemCountDict)            
             total+=v1
-        total = total * max_val
-        total=total%bucketSize # actual hash function total % bucket size
+        # total = total
+        # total = int((total * (total - 1))/2 + v2)
+        total= total%bucketSize 
         hashTable[total]+=1
     ####################################### HASH function
     # TODO How can we get a better hash?
@@ -138,6 +139,8 @@ def countCandidatesAndFillHashTable2(_pass, dataset, max_val):
                 total = 0
                 for item in pair:
                     total += item
+                # total = total
+                # total = (total * (total - 1))/2 + v2
                 hash = total % bucketSize
                 if bitVector[hash] == 1:
                     if pair in candidatePair:
@@ -346,5 +349,7 @@ if __name__ == '__main__':
             
             log.info("RESULT: [%d of %d] %d buckets: %.2f %4d %5d %4d %9.1f" % (testCount, totalTestCount, bucketSize, threshold, support, chunk_size, len(finalList), (end-start)*1000))
 
-    # print (data_result)
-    # OutputCSV(data_result)
+    #  print (data_result)
+
+    # most recent results always at: data/pcy_results/pcy_result_0.csv
+    OutputCSV(data_result)
