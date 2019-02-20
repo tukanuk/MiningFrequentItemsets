@@ -11,8 +11,8 @@ from decorators import timer, debug, logTimer
 import simplelogging
 
 
-#Define all macros
-# fileName=sys.argv[1]        # arg 1 filename
+#Define all global variables
+
 fileName='data/data.txt'
 hashTable={}
 bitVector={}
@@ -21,11 +21,9 @@ pair=2
 items={}
 freqItems=[]
 freqItemsCurItr=[]
-#support=int(sys.argv[2])    # arg 2 support threshold
-# bucketSize=int(sys.argv[2]) # arg 3 bucket size
-bucketSize=1000 # arg 3 bucket size
+# bucketSize=1000 # arg 3 bucket size
 weight=0
-my_dict={}
+itemCountDict={}
 bitVector=[]
 isPrint=False
 isPrint2=False
@@ -40,16 +38,16 @@ def getVal(item,my_d):
     if item in my_d:
         return my_d[item]
 
-# if not present in my_dict add to my_dict
-def addWeights(d, basket):
+# if not present in itemCountDict add to itemCountDict
+def addWeights(itemCountDict, basket):
     global weight
     for item in basket:
-        if item not in d:
-            d[item] = weight
+        if item not in itemCountDict:
+            itemCountDict[item] = weight
             weight += 1
 
 # @logTimer
-def updateHashTable(line, my_dict, size):
+def updateHashTable(line, itemCountDict, size):
     global hashTable
     v1 = v2 = total = 0
     items = [list(x) for x in itertools.combinations(line, size)]
@@ -61,27 +59,12 @@ def updateHashTable(line, my_dict, size):
     for key in items:
         total = 0
         for item in key:
-            v1=getVal(item,my_dict)            
+            v1=getVal(item,itemCountDict)            
             total+=v1
         total=total%bucketSize # actual hash function total % bucket size
-        if isPrint==True:
-            print ("%s - %d"%(key,total) )
         hashTable[total]+=1
     ####################################### HASH function
-    # if I understand corrctly what is happening here the two values are added
-    # then % bucket size. Doesn't this limit destination to the sum?
     # TODO How can we get a better hash?
-
-# @logTimer
-# def printMemSize(items,_pass):
-#     if _pass==0:
-#         print ("memory for item counts: %d"%((8+_pass*4)*len(items)))
-#     else:
-#         print ("memory for candidates counts of size %d : %d"%(_pass+1,(8+_pass*4)*(len(items))))
-
-# @logTimer
-# def printMemSizeHashTable(candidateType):
-#     print ("memory for hash table counts for size %d itemsets: %d"%(candidateType,4*len(hashTable)))
 
 # @logTimer
 def generateFreqCandidates(items):
@@ -109,85 +92,26 @@ def updateFreqItems(items):
         print (freqItems)
 
 # @logTimer
-# def printFreqItems(Idx):
-#     global freqItems
-#     print (freqItems[Idx])
-
-# @logTimer
 def generateHashTable(size):
     global hashTable
     for i in range(size):
         hashTable[i] = 0
 
 # @logTimer
-# def generateCandidates(candidates, _pass):
-#     candidateItems = list(itertools.combinations(candidates, _pass + 1))
-#     return candidateItems
-
-# @logTimer
-def countCandidatesAndFillHashTable(_pass):
-    global items
-    global my_dict  # Has weights for each item in the basket
-    global freqItems
-    flag = False
-    weight = -1
-
-    my_file = open(fileName, "r+")
-    # ***Counting Candidates***#
-    for line in my_file:
-        line = re.sub(r'\n', "", line)
-        basket = line.split(',')
-        basket.sort()
-        if (_pass==0):                    
-            addWeights(my_dict,basket)
-        #else:
-            #print freqItems
-            #candidateItems=generateCandidates(freqItems[0],_pass)
-        itemsInBasket = list(itertools.combinations(basket,_pass+1))
-        if isPrint==True:
-            print (itemsInBasket)                    
-        for item in itemsInBasket:
-            if (_pass != 0):
-                item_1 = list(itertools.combinations(item, _pass))
-                for key in item_1:
-                    if key in freqItems:
-                        flag = True
-                    else:
-                        flag = False
-                        break
-                if flag == True:
-                    if item in items:
-                        items[item] += 1
-                    else:
-                        items[item] = 1
-            else:
-                if item in items:
-                    items[item] += 1
-                else:
-                    items[item] = 1
-        updateHashTable(basket, my_dict, _pass + 2)
-    my_file.close()
-
-# @logTimer
 def countCandidatesAndFillHashTable2(_pass, dataset):
     global items
-    global my_dict  # Has weights for each item in the basket
+    global itemCountDict  # Has weights for each item in the basket
     global freqItems
-    flag = False
+    # flag = False
 
     global candidatePair
     # weight = -1 # pretty sure this is unused 
 
     # ***Counting Candidates***#
 
-    #### I found the problem? 
-    # on the second pass it reenters this loop again adn check is if item in the original basket is a frequent pair
-    # it compares the entire file to the freqItems
-    # TODO fix this problem. Walk through the debugger again. I think the main error is trying ot reuse this funciton for the second pass. 
-    # Just rewrite it for pass two. 
     for basket in dataset:
         if (_pass==0):                    
-            addWeights(my_dict,basket) # if not present in my_dict add to my_dict
+            addWeights(itemCountDict,basket) # if not present in itemCountDict add to itemCountDict
             itemsInBasket = list(itertools.combinations(basket,_pass+1))
         
             for item in itemsInBasket:
@@ -197,30 +121,13 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
                     items[item] += 1
                 else:
                     items[item] = 1
-                # if (_pass!=0):
-
-                #     # logTimerStart = time.time()
-                #     item_1=list(itertools.combinations(item,_pass))  # TODO unnessary when dealing with pairs?
-                #     # logTimerEnd = time.time()
-                #     # if ((logTimerEnd - logTimerStart) > 0.1): log.info("Line 181: %f", (logTimerEnd-logTimerStart) )
-
-                #     for key in item_1:
-                #         if key in freqItems:
-                #             flag = True
-                #         else:
-                #             flag = False
-                #             break
-                #     if flag == True:
-                #         if item in items:       # TODO if both flags are true can't this comparision be skipped? -> items[item] += 1
-                #             items[item] += 1
-                #         else:
-                #             items[item] = 1
-            updateHashTable(basket, my_dict, _pass + 2) # TODO no hash table on second pass
+    
+            updateHashTable(basket, itemCountDict, _pass + 2) # no hash table on second pass
         else:
-            freqItemInBasket = []
+            freqItemInBasket = []   # find the frequent items in this basket
             
             for item in basket:
-                for s in freqItems: # TODO I think the code here is producing bad results 
+                for s in freqItems: 
                    if item in s: 
                     freqItemInBasket.append(item)
             combination_freqItemInBasket = list(itertools.combinations(freqItemInBasket, _pass +1))
@@ -237,56 +144,6 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
                         candidatePair[pair] = 1
                 
     # print (candidatePair)
-
-def countCandidatesAndFillHashTable3(_pass, dataset):
-    global items
-    global my_dict  # Has weights for each item in the basket
-    global freqItems
-    flag = False
-    # weight = -1 # pretty sure this is unused 
-
-    # ***Counting Candidates***#
-
-    #### I found the problem? 
-    # on the second pass it reenters this loop again adn check is if item in the original basket is a frequent pair
-    # it compares the entire file to the freqItems
-    # TODO fix this problem. Walk through the debugger again. I think the main error is trying ot reuse this funciton for the second pass. 
-    # Just rewrite it for pass two. 
-    for basket in dataset:
-        if (_pass==0):                    
-            addWeights(my_dict,basket) # if not present in my_dict add to my_dict
-        
-        # logTimerStart = time.time()
-        itemsInBasket = list(itertools.combinations(basket,_pass+1))
-        # logTimerEnd = time.time()
-        # if ((logTimerEnd - logTimerStart) > 0.1): log.debug("Line 171: %f", (logTimerEnd-logTimerStart) )
-
-        for item in itemsInBasket:
-            if (_pass!=0):
-
-                # logTimerStart = time.time()
-                item_1=list(itertools.combinations(item,_pass))  # TODO unnessary when dealing with pairs?
-                # logTimerEnd = time.time()
-                # if ((logTimerEnd - logTimerStart) > 0.1): log.info("Line 181: %f", (logTimerEnd-logTimerStart) )
-
-                for key in item_1:
-                    if key in freqItems:
-                        flag = True
-                    else:
-                        flag = False
-                        break
-                if flag == True:
-                    if item in items:       # TODO if both flags are true can't this comparision be skipped? -> items[item] += 1
-                        items[item] += 1
-                    else:
-                        items[item] = 1
-            else:                           # first pass
-                if item in items:
-                    items[item] += 1
-                else:
-                    items[item] = 1
-        updateHashTable(basket, my_dict, _pass + 2) # TODO no hash table on second pass
-        # my_file.close()
 
 # @logTimer
 def generateBitVector():
@@ -349,7 +206,7 @@ def OutputCSV(data_result):
 #Generating items-singletons
 #def __main__():
 if __name__ == '__main__':
-    # global my_dict
+    # global itemCountDict
     # global hash
     # cls()
 
@@ -361,13 +218,10 @@ if __name__ == '__main__':
     # Testing sets
     # chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    thresholds = [0.01] #, 0.05, 0.1]
+    thresholds = [0.01, 0.05, 0.1]
 
     log.debug("START debug session")
-    # log.info("some debug")
-    # log.warning("some debug")
-    # log.error("some debug")
-    # log.critical("some debug")
+  
 
     # basket count
     data_lines = open(fileName).readlines()
@@ -379,11 +233,7 @@ if __name__ == '__main__':
 
     # Output Run info to debug
     log.info("START param: %s (%d baskets)", fileName, basket_count)
-    # log.info("some debug")
-    # log.warning("some debug")
-    # log.error("some debug")
-    # log.critical("some debug")
-
+  
     # Basic file info
     print ("\n%d Baskets" % (basket_count))
     print ("%d Tests\n" % (totalTestCount))
@@ -391,7 +241,7 @@ if __name__ == '__main__':
 
     # Setup for CSV
     data_result = []
-    data_result_line = ["#", "threshold", "support", "chunk_size", "c_%", "f_items", "time"]
+    data_result_line = ["#", "threshold", "support", "chunk_size", "c_%", "buckets", "f_items", "time"]
     data_result.append(data_result_line)
 
     # Nested loops for test sets
@@ -400,7 +250,6 @@ if __name__ == '__main__':
 
             # get line count for chunk
             chunk_size = int(basket_count * percent)
-
 
             #finding max value for bucket size
             max_val = 0
@@ -416,12 +265,32 @@ if __name__ == '__main__':
                         max_val = max(cells)
 
             # support threshold
-            support = int(threshold * chunk_size)
+            support = (threshold * chunk_size)
+            # support = round(support)
+            if round( support, 1) != int(support):  #If there is a round-off error it will be caught here
+                #Try lowering the threshold to accomodate the require threshold as well
+                support = (int(support) - 1)
+            else:
+                support = threshold
+            # print ("Support %d" % (support))
 
             #bucket size is set to 2 times the sum of max in current chunk
-            # bucketSize = 2 * max_val
-            bucketSize = 53103
+            bucketSize = 2 * max_val
+            # bucketSize = 53103
+            
             log.info("SET: %d (%.2f) support, %d (%.2f) chunk ", support, threshold, chunk_size, percent)
+
+            # reset variables for new test
+            hashTable.clear()
+            bitVector.clear()
+            singletonIdx=0
+            items.clear()
+            freqItems.clear()
+            freqItemsCurItr.clear()
+            weight = 0
+            itemCountDict.clear()
+            bitMapSize = 0
+            candidatePair.clear()
 
             start = time.time()  # Timer start
 
@@ -430,7 +299,7 @@ if __name__ == '__main__':
             while (_pass == 0 or isNextPassPossible(_pass) == True):
                 # print "\nPASS : %d"%(_pass+1)
                 items = {}
-                generateHashTable(bucketSize) # TODO no point in zeroing out table on second pass is there a .destroy?
+                generateHashTable(bucketSize) # TODO no point in gnerating table on second pass is there a .destroy?
                 
                 # countCandidatesAndFillHashTable(_pass)
                 countCandidatesAndFillHashTable2(_pass, dataset)
@@ -449,30 +318,22 @@ if __name__ == '__main__':
 
                     # print ("%d frequent pairs: %s" % (len(finalList), finalList))
 
-                # if len(items)!=0:
-                #     print
                 _pass += 1
             
             testCount += 1
             end = time.time() # Timer stop
 
             # Build a list for use in CSV output
-            data_result_line = [testCount, threshold, support, chunk_size, percent, len(finalList), (end-start)*1000]
+            data_result_line = [testCount, threshold, support, chunk_size, percent, bucketSize, len(finalList), (end-start)*1000]
             data_result.append(data_result_line)
-
-            # print ("%2d %.2f %4d %5d %4d %9.1f %9d" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000, bucketSize))
-            # print ("%2d %.2f %4d %5d %4d %9.1f %9d -> %d frequent item sets of size %d: %s" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000, bucketSize, len(frequent_items), _pass, frequent_items))
+            
+            # detailed output with frequent pairs
+            # print ("%2d %.2f %4d %5d %4d %9.1f %9d -> %d frequent item sets of size %d: %s" % (testCount, threshold, support, chunk_size, len(finalList), (end-start)*1000, bucketSize, len(finalList), _pass, finalList))
+            
+            # standard screen output
             print ("%2d %.2f %4d %5d %4d %9.1f %9d -> %d frequent item sets of size %d" % (testCount, threshold, support, chunk_size, len(finalList), (end-start)*1000, bucketSize, len(finalList), _pass))
-            # print ("%d frequent item sets of size %d: %s" % (len(frequent_items), _pass, frequent_items))
+            
             log.info("RESULT: [%d of %d] %d buckets: %.2f %4d %5d %4d %9.1f" % (testCount, totalTestCount, bucketSize, threshold, support, chunk_size, len(finalList), (end-start)*1000))
-
-            # values = []
-            # temp_df = pd.DataFrame( columns=['Keys', 'Support'])
-            # for key in items:
-            #     values = [key, items[key]]
-            #     temp_df.loc[len(temp_df)] = values
-            #
-            # temp_df.to_csv('data/pcy_test.csv',index=False)
 
     # print (data_result)
     OutputCSV(data_result)

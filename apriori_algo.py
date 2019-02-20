@@ -21,7 +21,7 @@ def alg():
     data_lines = open('data/data.txt').readlines()
 
     chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    thresholds = [0.01, 0.05, 0.1]
+    thresholds = [0.01]#, 0.05, 0.1]
 
     result_df = pd.DataFrame(columns=['Threshold','Frequent Set Count','Execution Time','Chunk Size',
                                                                                     'Chunk Percent'])
