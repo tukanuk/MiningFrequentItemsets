@@ -47,7 +47,7 @@ def addWeights(itemCountDict, basket):
             weight += 1
 
 # @logTimer
-def updateHashTable(line, itemCountDict, size):
+def updateHashTable(line, itemCountDict, size, max_val):
     global hashTable
     v1 = v2 = total = 0
     items = [list(x) for x in itertools.combinations(line, size)]
@@ -61,6 +61,7 @@ def updateHashTable(line, itemCountDict, size):
         for item in key:
             v1=getVal(item,itemCountDict)            
             total+=v1
+        total = total * max_val
         total=total%bucketSize # actual hash function total % bucket size
         hashTable[total]+=1
     ####################################### HASH function
@@ -99,7 +100,7 @@ def generateHashTable(size):
         hashTable[i] = 0
 
 # @logTimer
-def countCandidatesAndFillHashTable2(_pass, dataset):
+def countCandidatesAndFillHashTable2(_pass, dataset, max_val):
     global items
     global itemCountDict  # Has weights for each item in the basket
     global freqItems
@@ -123,7 +124,7 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
                 else:
                     items[item] = 1
     
-            updateHashTable(basket, itemCountDict, _pass + 2) # no hash table on second pass
+            updateHashTable(basket, itemCountDict, _pass + 2, max_val) # no hash table on second pass
         else:
             freqItemInBasket = []   # find the frequent items in this basket
             
@@ -147,30 +148,30 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
     # print (candidatePair)
 
 # @logTimer
-def generateBitVector(min_val, max_val):
+def generateBitVector():#(min_val, max_val):
     global bitVector
     global bitMapSize
     bitVector = []
     flag = False
-    # for i in range(bucketSize):
-    #     if hashTable[i] >= support:
-    #         bitVector.append(1)
-    #         flag = True
-    #     else:
-    #         bitVector.append(0)
-    # if isPrint==True:
-    #     print ("BitVector:%d"%(flag))
-    #     print (bitVector)
-    # #print "bitmap size : %d"%(len(bitVector))
-    # bitMapSize=len(bitVector)
+    for i in range(bucketSize):
+        if hashTable[i] >= support:
+            bitVector.append(1)
+            flag = True
+        else:
+            bitVector.append(0)
+    if isPrint==True:
+        print ("BitVector:%d"%(flag))
+        print (bitVector)
+    #print "bitmap size : %d"%(len(bitVector))
+    bitMapSize=len(bitVector)
 
 
-    diff = (max_val - min_val)
-    bitVector = np.zeros(diff, dtype=int)
+    # diff = (max_val - min_val)
+    # bitVector = np.zeros(diff, dtype=int)
 
-    for val in hashTable:
-        if hashTable[val] >= support:
-            bitVector[val - min_val] = 1
+    # for val in hashTable:
+    #     if hashTable[val] >= support:
+    #         bitVector[val - min_val] = 1
 
     return flag
 
@@ -312,7 +313,7 @@ if __name__ == '__main__':
                 generateHashTable(bucketSize) # TODO no point in gnerating table on second pass is there a .destroy?
                 
                 # countCandidatesAndFillHashTable(_pass)
-                countCandidatesAndFillHashTable2(_pass, dataset)
+                countCandidatesAndFillHashTable2(_pass, dataset, max_val)
 
                 finalList = {}    
                 # fillHashTable()
