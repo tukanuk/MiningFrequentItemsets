@@ -20,8 +20,8 @@ def alg():
 
     data_lines = open('data/data.txt').readlines()
 
-    chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    thresholds = [0.01] #, 0.05, 0.1
+    chunk_percent = [0.05]    #0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1
+    thresholds = [0.01] #0.01, 0.05, 0.1
 
     result_df = pd.DataFrame(columns=['Threshold','Frequent Set Count','Execution Time','Chunk Size',
                                                                                     'Chunk Percent'])
@@ -67,10 +67,12 @@ def alg():
             #                                         [chunk_size] * len(frequent_items['itemsets']),
             #                                         frequent_items['itemsets'] ])
 
+            frequent_items['itemsets'] = [tuple((int(tuple(x)[0]), int(tuple(x)[1]))) for x in frequent_items['itemsets']]
+            frequent_items['itemsets'] = [ tuple(sorted(x)) for x in frequent_items['itemsets']]
+            frequent_items = frequent_items.sort_values(by=['itemsets'])
             frequent_set_stack = np.column_stack ([ frequent_items['support'],
                                                     [chunk_size] * len(frequent_items['itemsets']),
                                                     frequent_items['itemsets'] ])
-
 
             frequent_sets_temp = pd.DataFrame(frequent_set_stack,columns=['Threshold','Chunk Size','Frequent Set'])
             frequent_sets = pd.concat([frequent_sets,frequent_sets_temp])
@@ -90,7 +92,8 @@ def alg():
     # frequent_sets.to_excel(writer,sheet_name='Sets', index=False)
     # writer.save()
 
-    # frequent_sets.to_csv('data/aprior_test.csv', index=False)
+
+    frequent_sets.to_csv('data/apriori_test.csv', index=False)
 
 if __name__ == "__main__":
     alg()

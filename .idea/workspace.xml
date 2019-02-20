@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4de5a27-4328-4c32-bc20-e04cd45d1680" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apriori_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/apriori_algo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/pcy_result_0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/pcy_result_0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/pcy_test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/pcy_test.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pcy_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/pcy_algo.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="apriori_algo.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apriori_algo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apriori_algo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="50" column="96" selection-start-line="50" selection-start-column="96" selection-end-line="50" selection-end-column="96" />
+            <state relative-caret-position="118">
+              <caret line="69" column="87" lean-forward="true" selection-start-line="69" selection-start-column="87" selection-end-line="69" selection-end-column="87" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -30,8 +31,20 @@
       <file leaf-file-name="pcy_algo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pcy_algo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="90" column="24" lean-forward="true" selection-start-line="90" selection-start-column="24" selection-end-line="90" selection-end-column="24" />
+            <state relative-caret-position="-5032">
+              <caret line="25" column="35" lean-forward="true" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pcy_algo_v2.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pcy_algo_v2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-302">
+              <caret line="191" column="59" lean-forward="true" selection-start-line="191" selection-start-column="59" selection-end-line="191" selection-end-column="59" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -55,8 +68,14 @@
       <find>frequent_items</find>
       <find />
       <find>589</find>
-      <find>generateFreqCandidates</find>
       <find>countCandidatesAndFillHashTable2</find>
+      <find>generateFreqCandidates</find>
+      <find>hashTable</find>
+      <find>my_dict</find>
+      <find>tuple</find>
+      <find>generateHas</find>
+      <find>bitVector</find>
+      <find>generateB</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -68,10 +87,11 @@
         <option value="$PROJECT_DIR$/Test.py" />
         <option value="$PROJECT_DIR$/pcy_algo.py" />
         <option value="$PROJECT_DIR$/apriori_algo.py" />
+        <option value="$PROJECT_DIR$/pcy_algo_v2.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="15" />
     <option name="y" value="30" />
     <option name="width" value="1890" />
@@ -82,6 +102,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -93,7 +114,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -111,7 +131,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.apriori_algo">
+  <component name="RunManager" selected="Python.pcy_algo_v2">
     <configuration name="Test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MiningFrequentItemsets" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -166,13 +186,33 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="pcy_algo_v2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MiningFrequentItemsets" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pcy_algo_v2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list>
       <item itemvalue="Python.apriori_algo" />
       <item itemvalue="Python.Test" />
       <item itemvalue="Python.pcy_algo" />
+      <item itemvalue="Python.pcy_algo_v2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.pcy_algo_v2" />
         <item itemvalue="Python.apriori_algo" />
         <item itemvalue="Python.pcy_algo" />
         <item itemvalue="Python.Test" />
@@ -196,7 +236,7 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24960254" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.24960254" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
@@ -216,16 +256,16 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3291592" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3291592" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.24960254" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24960254" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39892665" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39892665" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3291592" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -239,10 +279,70 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="40" />
+      <option name="time" value="104" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/apriori_algo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="82" selection-start-line="82" selection-end-line="82" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcy_algo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4420">
+          <caret line="260" lean-forward="true" selection-start-line="260" selection-end-line="260" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apriori_algo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcy_algo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6256">
+          <caret line="376" column="41" lean-forward="true" selection-start-line="376" selection-start-column="41" selection-end-line="376" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apriori_algo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="36" lean-forward="true" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pcy_algo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7004">
+          <caret line="412" column="72" selection-start-line="412" selection-start-column="72" selection-end-line="412" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apriori_algo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -257,9 +357,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3162">
           <caret line="188" column="30" lean-forward="true" selection-start-line="188" selection-start-column="30" selection-end-line="188" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -444,45 +541,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/pcy_result_11.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/pcy_result_10.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/nandan_nayak_pcy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="188" column="30" selection-start-line="188" selection-start-column="30" selection-end-line="188" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../../Software/Python Installation/Lib/site-packages/pandas/io/common.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
-          <caret line="407" lean-forward="true" selection-start-line="407" selection-end-line="407" />
+          <caret line="399" selection-start-line="399" selection-end-line="399" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apriori_algo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="69" column="87" lean-forward="true" selection-start-line="69" selection-start-column="87" selection-end-line="69" selection-end-column="87" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pcy_algo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="90" column="24" lean-forward="true" selection-start-line="90" selection-start-column="24" selection-end-line="90" selection-end-column="24" />
+        <state relative-caret-position="-5032">
+          <caret line="25" column="35" lean-forward="true" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apriori_algo.py">
+    <entry file="file://$PROJECT_DIR$/pcy_algo_v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="50" column="96" selection-start-line="50" selection-start-column="96" selection-end-line="50" selection-end-column="96" />
+        <state relative-caret-position="-302">
+          <caret line="191" column="59" lean-forward="true" selection-start-line="191" selection-start-column="59" selection-end-line="191" selection-end-column="59" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>

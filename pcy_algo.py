@@ -48,24 +48,46 @@ def addWeights(d, basket):
             weight += 1
 
 # @logTimer
-def updateHashTable(line, my_dict, size):
+def updateHashTable(line, my_dict, size, max_val):
     global hashTable
     v1 = v2 = total = 0
     items = [list(x) for x in itertools.combinations(line, size)]
-    if isPrint==True:
-        print ("UpdateHashTable")
-        print (items)
+    # if isPrint==True:
+    #     print ("UpdateHashTable")
+    #     print (items)
 
     ####################################### HASH function
-    for key in items:
-        total = 0
-        for item in key:
-            v1=getVal(item,my_dict)            
-            total+=v1
-        total=total%bucketSize # actual hash function total % bucket size
-        if isPrint==True:
-            print ("%s - %d"%(key,total) )
-        hashTable[total]+=1
+    # for key in items:
+    #     total = 0
+    #     for item in key:
+    #         v1 = getVal(item,my_dict)
+    #         total += v1
+    #
+    #     total = total % bucketSize # actual hash function total % bucket size
+    #
+    #     if isPrint==True:
+    #         print ("%s - %d"%(key,total) )
+    #     hashTable[total]+=1
+
+    for pair in items:
+        # total = ((pair[0]) + pair[1]) % bucketSize
+        # if total == 19:
+        #     print()
+        # total = int(str(pair[0]) + str(pair[1]))
+
+        total = pair[0] + pair[1] * max_val
+        if total in hashTable:
+            hashTable[total] += 1
+        else:
+            hashTable[total] = 1
+
+        # hashIndex = int(((pair[0] + pair[1]) * (pair[0] + pair[1] + 1)) / 2) + pair[1]
+        # if hashIndex in hashTable:
+        #     hashTable[hashIndex] += 1
+        # else:
+        #     hashTable[hashIndex] = 1
+
+
     ####################################### HASH function
     # if I understand corrctly what is happening here the two values are added
     # then % bucket size. Doesn't this limit destination to the sum?
@@ -94,7 +116,8 @@ def generateFreqCandidates(items):
     freqItems.sort()
     freqItemsCurItr.sort()
     for tuples in freqItemsCurItr:
-        temp.append(list(tuples))
+        # temp.append(list(tuples))
+        temp.append(list(tuples)[0])
     freqItemsCurItr = temp
 
     return freqItemsCurItr
@@ -168,7 +191,7 @@ def countCandidatesAndFillHashTable(_pass):
     my_file.close()
 
 # @logTimer
-def countCandidatesAndFillHashTable2(_pass, dataset):
+def countCandidatesAndFillHashTable2(_pass, dataset, max_val):
     global items
     global my_dict  # Has weights for each item in the basket
     global freqItems
@@ -178,7 +201,7 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
     # ***Counting Candidates***#
 
     for basket in dataset:
-        if (_pass==0):                    
+        if (_pass==0):
             addWeights(my_dict,basket)
         
         # logTimerStart = time.time()
@@ -210,26 +233,35 @@ def countCandidatesAndFillHashTable2(_pass, dataset):
                     items[item] += 1
                 else:
                     items[item] = 1
-        updateHashTable(basket, my_dict, _pass + 2)
+        updateHashTable(basket, my_dict, _pass + 2, max_val)
         # my_file.close()
 
 # @logTimer
-def generateBitVector():
+def generateBitVector(min_val, max_val):
     global bitVector
     global bitMapSize
     bitVector = []
     flag = False
-    for i in range(bucketSize):
-        if hashTable[i] >= support:
-            bitVector.append(1)
-            flag = True
-        else:
-            bitVector.append(0)
-    if isPrint==True:
-        print ("BitVector:%d"%(flag))
-        print (bitVector)
-    #print "bitmap size : %d"%(len(bitVector))
-    bitMapSize=len(bitVector)
+    # for i in range(bucketSize):
+    #     if hashTable[i] >= support:
+    #         bitVector.append(1)
+    #         flag = True
+    #     else:
+    #         bitVector.append(0)
+    # if isPrint==True:
+    #     print ("BitVector:%d"%(flag))
+    #     print (bitVector)
+    # #print "bitmap size : %d"%(len(bitVector))
+    # bitMapSize=len(bitVector)
+
+
+    diff = (max_val - min_val)
+    bitVector = np.zeros(diff, dtype=int)
+
+    for val in hashTable:
+        if hashTable[val] >= support:
+            bitVector[val - min_val] = 1
+
     return flag
 
 # @logTimer
@@ -288,7 +320,7 @@ if __name__ == '__main__':
     # Testing sets
     # chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     chunk_percent = [0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    thresholds = [0.01] #, 0.05, 0.1]
+    thresholds = [0.01] #0.01, 0.05, 0.1]
 
     # log.debug("START debug session")
     # log.info("some debug")
@@ -305,16 +337,16 @@ if __name__ == '__main__':
     testCount = 0
 
     # Output Run info to debug
-    log.info("START param: %s (%d baskets) %d buckets", fileName, basket_count, bucketSize)
+    # log.info("START param: %s (%d baskets) %d buckets", fileName, basket_count, bucketSize)
     # log.info("some debug")
     # log.warning("some debug")
     # log.error("some debug")
     # log.critical("some debug")
 
     # Basic file info
-    print ("\n%d Baskets" % (basket_count))
-    print ("%d Buckets" % (bucketSize))
-    print ("%d Tests\n" % (totalTestCount))
+    # print ("\n%d Baskets" % (basket_count))
+    # print ("%d Buckets" % (bucketSize))
+    # print ("%d Tests\n" % (totalTestCount))
     print (" # %Thr Supp Chunk  Fre      Time")
 
     # Setup for CSV
@@ -347,46 +379,75 @@ if __name__ == '__main__':
             support = int(threshold * chunk_size)
 
             #bucket size is set to 2 times the sum of max in current chunk
-            bucketSize = max_val
-            log.info("SET: %d (%.2f) support, %d (%.2f) chunk ", support, threshold, chunk_size, percent)
+            # bucketSize = int(str(max_val) + str(max_val))
+            # da = len(my_dict)
+            # bucketSize = int(pow(len(my_dict),2)/2)
+            bucketSize = (max_val * 1000)
+            # log.info("SET: %d (%.2f) support, %d (%.2f) chunk ", support, threshold, chunk_size, percent)
 
             start = time.time()  # Timer start
 
             _pass = 0
             size = 0
-            while (_pass == 0 or isNextPassPossible(_pass) == True):
-                # print "\nPASS : %d"%(_pass+1)
-                items = {}
-                generateHashTable(bucketSize)
-                
-                # countCandidatesAndFillHashTable(_pass)
-                countCandidatesAndFillHashTable2(_pass, dataset)
-                
-                # fillHashTable()
-                if _pass != 0:
-                    size = _pass - 1
+            # while (_pass == 0 or isNextPassPossible(_pass) == True):
+            #     # print "\nPASS : %d"%(_pass+1)
+            #     items = {}
+            #     generateHashTable(bucketSize)
+            #
+            #     # countCandidatesAndFillHashTable(_pass)
+            #     countCandidatesAndFillHashTable2(_pass, dataset)
+            #
+            #     # fillHashTable()
+            #     if _pass != 0:
+            #         size = _pass - 1
+            #
+            #     # if len(items)!=0:
+            #     #     print
+            #     _pass += 1
 
-                # if len(items)!=0:
-                #     print
-                _pass += 1
-            
+            items = {}
+            # generateHashTable(bucketSize)
+            countCandidatesAndFillHashTable2(_pass, dataset, max_val)
+            _pass += 1
+
+            frequent_items = generateFreqCandidates(items)  # list of frequent items
+            min_hval = min(int(x) for x in hashTable)
+            max_hval = max(int(x) for x in hashTable)
+            generateBitVector(min_hval, max_hval)
+
+            current_frequent_pairs = [list(x) for x in itertools.combinations(frequent_items, 2)]
+
+            frequent_pairs = []
+            temp_frequent_pairs_print = {}
+
+            for pair in current_frequent_pairs:
+
+                # hashIndex = int(((pair[0] + pair[1]) * (pair[0] + pair[1] + 1)) / 2) + pair[1]
+                # if hashTable[hashIndex] >= support:
+                hashIndex = pair[0] + pair[1] * max_val
+                if bitVector[hashIndex - min_hval] == 1:
+                    frequent_pairs.append(pair)
+                    # temp_frequent_pairs_print[tuple(pair)] = hashTable[hashIndex]
+
             testCount += 1
             end = time.time() # Timer stop
 
             # Build a list for use in CSV output
-            data_result_line = [testCount, threshold, support, chunk_size, percent, len(frequent_items), (end-start)*1000]
+            # data_result_line = [testCount, threshold, support, chunk_size, percent, len(frequent_items), (end-start)*1000]
+            data_result_line = [testCount, threshold, support, chunk_size, percent, len(frequent_pairs), (end-start)*1000]
             data_result.append(data_result_line)
 
-            print ("%2d %.2f %4d %5d %4d %9.3f" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
-            log.info("RESULT: [%d of %d] %.2f %4d %5d %4d %9.3f" % (testCount, totalTestCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
+            # print ("%2d %.2f %4d %5d %4d %9.3f" % (testCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
+            print ("%2d %.2f %4d %5d %4d %9.3f" % (testCount, threshold, support, chunk_size, len(frequent_pairs), (end-start)*1000))
+            #log.info("RESULT: [%d of %d] %.2f %4d %5d %4d %9.3f" % (testCount, totalTestCount, threshold, support, chunk_size, len(frequent_items), (end-start)*1000))
 
             # values = []
             # temp_df = pd.DataFrame( columns=['Keys', 'Support'])
-            # for key in items:
-            #     values = [key, items[key]]
+            # for key in temp_frequent_pairs_print:
+            #     values = [key, temp_frequent_pairs_print[key]]
             #     temp_df.loc[len(temp_df)] = values
             #
             # temp_df.to_csv('data/pcy_test.csv',index=False)
 
     # print (data_result)
-    OutputCSV(data_result)
+    # OutputCSV(data_result)
